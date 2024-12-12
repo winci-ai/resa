@@ -82,7 +82,7 @@ def main():
     model = nn.parallel.DistributedDataParallel(model, device_ids=[device])
     #model = nn.parallel.DistributedDataParallel(model)
 
-    if args.rank == 0:s
+    if args.rank == 0:
         logging.info(model)
     logging.info("Building model done.")
 

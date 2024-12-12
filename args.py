@@ -66,10 +66,6 @@ def get_args():
         "--momentum", type=float, default=0.996, help="Base EMA parameter"
     )
 
-    parser.add_argument(
-        "--method", type=str, default="resa", help="loss type",
-    )
-
     #####################
     #### optim params ###
     #####################
