@@ -77,7 +77,8 @@ def main():
     # copy model to GPU
     torch.cuda.set_device(device)
     model.cuda(device)
-    model = nn.parallel.DistributedDataParallel(model, device_ids=[device])
+    #model = nn.parallel.DistributedDataParallel(model, device_ids=[device])
+    model = nn.parallel.DistributedDataParallel(model)
 
     if args.rank == 0:
         logging.info(model)
