@@ -43,6 +43,8 @@ def main():
     # fully initialize distributed device environment
     device, args = init_distributed_device(args)
 
+    print(f"Rank {args.rank} running on device {args.device}")
+
     if args.rank == 0: wandb.init(project=args.wandb_project, name=args.env_name, config=args)
 
     if not os.path.exists(args.dump_path):
