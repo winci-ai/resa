@@ -141,10 +141,10 @@ def main():
                 save_dict,
                 os.path.join(args.dump_path, "checkpoint.pth.tar"),
             )
-
-            wandb.log({"learning_rate": optimizer.param_groups[0]['lr'], 
-                       "momentum": unwrap_model(model).momentum, 
-                       "loss": loss, "ep": epoch})
+            if args.rank == 0:
+                wandb.log({"learning_rate": optimizer.param_groups[0]['lr'], 
+                        "momentum": unwrap_model(model).momentum, 
+                        "loss": loss, "ep": epoch})
         
 def train(loader, model, scaler, optimizer, epoch, args):
     batch_time = AverageMeter()
