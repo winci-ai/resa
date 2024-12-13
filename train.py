@@ -81,7 +81,7 @@ def main():
     model.cuda(device)
     model = nn.parallel.DistributedDataParallel(model, device_ids=[device])
 
-    if args.rank == 0:
+    if args.local_rank == 0:
         logging.info(model)
     logging.info("Building model done.")
 
@@ -131,7 +131,7 @@ def main():
         loss = train(train_loader, model, scaler, optimizer, epoch, args)
 
         # save checkpoints
-        if args.rank == 0:
+        if args.local_rank == 0:
             save_dict = {
                 "epoch": epoch + 1,
                 "state_dict": model.state_dict(),
@@ -178,7 +178,7 @@ def train(loader, model, scaler, optimizer, epoch, args):
         losses.update(loss.item(), samples[0].size(0))
         batch_time.update(time.time() - end)
         end = time.time()
-        if args.rank ==0 and it % 50 == 0:
+        if args.local_rank ==0 and it % 50 == 0:
             logging.info(
                 "Epoch: [{0}][{1}]\t"
                 "Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t"
