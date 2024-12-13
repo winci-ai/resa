@@ -140,7 +140,7 @@ def main():
         parameters = list(filter(lambda p: p.requires_grad, model.parameters()))
         assert len(parameters) == 2  # fc.weight, fc.bias
 
-    if args.rank == 0:
+    if args.local_rank == 0:
         logging.info(model)
         logging.info("Building model done.")
 
@@ -172,7 +172,7 @@ def main():
         scheduler.step()
 
         # save checkpoints
-        if args.rank == 0:
+        if args.local_rank == 0:
             save_dict = {
                 "epoch": epoch + 1,
                 "state_dict": model.state_dict(),
