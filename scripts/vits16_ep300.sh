@@ -1,10 +1,10 @@
 port=10001
 gpu=0,1,2,3
-lr=5e-4
+lr=1.5e-4
 wd=0.1
 optimizer=adamw
 epochs=300
-warmup=40
+warmup=10
 arch=vit_small
 patch_size=16
 bs=256

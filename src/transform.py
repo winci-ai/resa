@@ -77,7 +77,7 @@ class ImageNetTransform(BaseTransform):
                 Defaults to 0.0.
             equalization_prob (float, optional): probability of applying equalization.
                 Defaults to 0.0.
-            min_scale (float, optional): minimum scale of the crops. Defaults to 0.08.
+            min_scale (float, optional): minimum scale of the crops. Defaults to 0.2.
             max_scale (float, optional): maximum scale of the crops. Defaults to 1.0.
             crop_size (int, optional): size of the crop. Defaults to 224.
         """
@@ -114,32 +114,31 @@ class MuiltiCropDataset(datasets.ImageFolder):
     ):
         super(MuiltiCropDataset, self).__init__(data_path)
     
-        assert len(args.crops_size) == len(args.nmb_crops)
-        assert len(args.min_scale_crops) == len(args.nmb_crops)
-        assert len(args.max_scale_crops) == len(args.nmb_crops)
-        assert len(args.gaussian_prob) == len(args.nmb_crops)
-        assert len(args.solarization_prob) == len(args.nmb_crops)
+        assert len(args.crops_size) == len(args.crops_nmb)
+        assert len(args.crops_min_scale) == len(args.crops_nmb)
+        assert len(args.crops_max_scale) == len(args.crops_nmb)
+        assert len(args.gaussian_prob) == len(args.crops_nmb)
+        assert len(args.solarization_prob) == len(args.crops_nmb)
 
         if args.size_dataset >= 0:
             self.samples = self.samples[:args.size_dataset]
         self.return_index = return_index
 
-        mean = (0.485, 0.456, 0.406)
-        std = (0.229, 0.224, 0.225)
 
         weak_transform = transforms.Compose([
-                    transforms.RandomResizedCrop(args.crops_size[0], scale=(args.min_scale_crops[0], 1.)),
+                    transforms.RandomResizedCrop(args.crops_size[0],
+                        scale=(args.crops_min_scale[0], args.crops_max_scale[0])),
                     transforms.RandomHorizontalFlip(),
                     transforms.ToTensor(),
-                    transforms.Normalize(mean, std),
+                    transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
                 ])
 
         trans = [weak_transform]
 
-        for i in range(len(args.nmb_crops)):
-            trans.extend([ImageNetTransform(crop_size = args.crops_size[i], min_scale = args.min_scale_crops[i],
-                                            max_scale = args.max_scale_crops[i], gaussian_prob = args.gaussian_prob[i], 
-                                            solarization_prob = args.solarization_prob[i]) ] * args.nmb_crops[i])
+        for i in range(len(args.crops_nmb)):
+            trans.extend([ImageNetTransform(crop_size = args.crops_size[i], min_scale = args.crops_min_scale[i],
+                                            max_scale = args.crops_max_scale[i], gaussian_prob = args.gaussian_prob[i], 
+                                            solarization_prob = args.solarization_prob[i]) ] * args.crops_nmb[i])
 
         self.trans = trans
 
