@@ -41,6 +41,8 @@ def main():
     # fully initialize distributed device environment
     device, args = init_distributed_device(args)
 
+    print(f"Rank {args.rank} running on device {args.device}")
+
     if not os.path.exists(args.dump_path):
         # Create the folder if it doesn't exist
         os.makedirs(args.dump_path)
@@ -75,9 +77,9 @@ def main():
     model.cuda(device)
     model = nn.parallel.DistributedDataParallel(model, device_ids=[device])
 
-    if args.rank == 0:
+    if args.local_rank == 0:
         logging.info(model)
-    logging.info("Building model done.")
+        logging.info("Building model done.")
 
     # build optimizer
     args.lr = args.lr * args.batch_size * args.world_size / 256
@@ -125,7 +127,7 @@ def main():
         loss = train(train_loader, model, scaler, optimizer, epoch, args)
 
         # save checkpoints
-        if args.rank == 0:
+        if args.local_rank == 0:
             save_dict = {
                 "epoch": epoch + 1,
                 "state_dict": model.state_dict(),
@@ -168,7 +170,7 @@ def train(loader, model, scaler, optimizer, epoch, args):
         losses.update(loss.item(), samples[0].size(0))
         batch_time.update(time.time() - end)
         end = time.time()
-        if args.rank ==0 and it % 50 == 0:
+        if args.local_rank ==0 and it % 50 == 0:
             logging.info(
                 "Epoch: [{0}][{1}]\t"
                 "Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t"
@@ -193,4 +195,3 @@ def adjust_parameters(model, optimizer, args, iters):
 
 if __name__ == "__main__":
     main()
-
