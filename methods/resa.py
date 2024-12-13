@@ -28,8 +28,8 @@ class ReSA(BaseMethod):
         
         with torch.no_grad():
             self._momentum_params_update(self.momentum)
-            m_h, emb_m = self.ForwardWrapper(samples[:2], self.momentum_encoder, self.momentum_projector)
-            assign = self.sinkhorn(h @ m_h.T)
+            h_m, emb_m = self.ForwardWrapper(samples[:2], self.momentum_encoder, self.momentum_projector)
+            assign = self.sinkhorn(h @ h_m.T)
            
         total_loss = 0
         n_loss_terms = 0

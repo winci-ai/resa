@@ -60,12 +60,8 @@ def get_encoder(args):
     if  args.is_vit:
         encoder, out_size = vits.__dict__[args.arch](patch_size=args.patch_size)
     else:
-        zero_init = False
-        if args.arch != 'resnet18':
-            zero_init = True
-
         encoder, out_size = resnet.__dict__[args.arch](
-                zero_init_residual=zero_init)
+                zero_init_residual=(args.arch != 'resnet18'))
 
         if args.crops_size[0] == 32: # for CIFAR dataset
             encoder.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)

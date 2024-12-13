@@ -30,42 +30,42 @@ class BaseMethod(nn.Module):
                 return_counts=True,
             )[1], 0)
 
-            start_idx, rep = 0, torch.empty(0).to(self.device)
+            start_idx, h = 0, torch.empty(0).to(self.device)
 
             for end_idx in idx_crops:
                 _out = encoder(torch.cat(samples[start_idx: end_idx]))
-                rep = torch.cat((rep, _out))
+                h = torch.cat((h, _out))
                 start_idx = end_idx
             # Run the projector forward on the concatenated features.
-            emb = projector(rep)
+            emb = projector(h)
             if torch.is_grad_enabled() and self.predictor:
                 emb = self.predictor(emb)
             
             emb = emb.chunk(views)
-            rep = rep.chunk(views)
+            h = h.chunk(views)
         else:
             # do not concate different views if BN is in the model 
             # As it will disrupt the zero-mean, unit-variance distribution
-            rep = [encoder(x) for x in samples]
-            emb = [projector(x) for x in rep]
+            h = [encoder(x) for x in samples]
+            emb = [projector(x) for x in h]
             if torch.is_grad_enabled() and self.predictor:
                 emb = [self.predictor(x) for x in emb]
 
         emb = [FullGather.apply(F.normalize(x)) for x in emb]
 
         with torch.no_grad():
-            rep = FullGather.apply(F.normalize(rep[0]))
+            h = FullGather.apply(F.normalize(h[0]))
 
-        return rep, emb
+        return h, emb
 
     @torch.no_grad()
     def sinkhorn(self, scores, eps=0.05, niters=3):
         Q = torch.exp(scores / eps).t()
         Q /= Q.sum()
         K, B = Q.shape
-        u = torch.zeros(K, device=scores.device)
-        r = torch.ones(K, device=scores.device) / K
-        c = torch.ones(B, device=scores.device) / B
+        u = torch.zeros(K, device=self.device)
+        r = torch.ones(K, device=self.device) / K
+        c = torch.ones(B, device=self.device) / B
         for _ in range(niters):
             u = Q.sum(dim=1)
             Q *= (r / u).unsqueeze(1)
