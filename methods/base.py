@@ -59,16 +59,14 @@ class BaseMethod(nn.Module):
         return h, emb
 
     @torch.no_grad()
-    def sinkhorn(self, scores, eps=0.05, niters=3):
-        Q = torch.exp(scores / eps).t()
+    def sinkhorn(self, square, eps=0.05, niters=3):
+        Q = torch.exp(square / eps).t()
         Q /= Q.sum()
-        K, B = Q.shape
-        u = torch.zeros(K, device=self.device)
-        r = torch.ones(K, device=self.device) / K
-        c = torch.ones(B, device=self.device) / B
+        m , _ = Q.shape
+        c = torch.ones(m, device=self.device) / m
         for _ in range(niters):
             u = Q.sum(dim=1)
-            Q *= (r / u).unsqueeze(1)
+            Q *= (c / u).unsqueeze(1)
             Q *= (c / Q.sum(dim=0)).unsqueeze(0)
         return (Q / Q.sum(dim=0, keepdim=True)).t()
 
