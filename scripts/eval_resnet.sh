@@ -1,7 +1,6 @@
-cd ..
 port=10001
-gpu=0
-lr=20
+gpu=0 
+lr=20  ## change lr to 8 when pre-training bs=256
 epochs=100
 name=""
 pretrained="out/${name}/checkpoint.pth.tar"

@@ -82,6 +82,10 @@ class ImageNetTransform(BaseTransform):
             crop_size (int, optional): size of the crop. Defaults to 224.
         """
 
+        ratio = crop_size / 224 
+        min_scale = min_scale * ratio
+        max_scale = max_scale * ratio
+
         self.transform = transforms.Compose(
             [
                 transforms.RandomResizedCrop(
@@ -113,21 +117,14 @@ class MuiltiCropDataset(datasets.ImageFolder):
         return_index=False,
     ):
         super(MuiltiCropDataset, self).__init__(data_path)
-    
-        assert len(args.crops_size) == len(args.crops_nmb)
-        assert len(args.crops_min_scale) == len(args.crops_nmb)
-        assert len(args.crops_max_scale) == len(args.crops_nmb)
-        assert len(args.gaussian_prob) == len(args.crops_nmb)
-        assert len(args.solarization_prob) == len(args.crops_nmb)
 
         if args.size_dataset >= 0:
             self.samples = self.samples[:args.size_dataset]
         self.return_index = return_index
 
-
         weak_transform = transforms.Compose([
                     transforms.RandomResizedCrop(args.crops_size[0],
-                        scale=(args.crops_min_scale[0], args.crops_max_scale[0])),
+                        scale=(args.crop_min_scale, args.crop_max_scale)),
                     transforms.RandomHorizontalFlip(),
                     transforms.ToTensor(),
                     transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
@@ -136,8 +133,8 @@ class MuiltiCropDataset(datasets.ImageFolder):
         trans = [weak_transform]
 
         for i in range(len(args.crops_nmb)):
-            trans.extend([ImageNetTransform(crop_size = args.crops_size[i], min_scale = args.crops_min_scale[i],
-                                            max_scale = args.crops_max_scale[i], gaussian_prob = args.gaussian_prob[i], 
+            trans.extend([ImageNetTransform(crop_size = args.crops_size[i], 
+                                            min_scale = args.crop_min_scale, max_scale = args.crop_max_scale,
                                             solarization_prob = args.solarization_prob[i]) ] * args.crops_nmb[i])
 
         self.trans = trans

@@ -60,7 +60,7 @@ class BaseMethod(nn.Module):
 
     @torch.no_grad()
     def sinkhorn(self, square, eps=0.05, niters=3):
-        Q = torch.exp(square / eps).t()
+        Q = torch.exp(square / eps).T
         Q /= Q.sum()
         m , _ = Q.shape
         c = torch.ones(m, device=self.device) / m
@@ -68,7 +68,7 @@ class BaseMethod(nn.Module):
             u = Q.sum(dim=1)
             Q *= (c / u).unsqueeze(1)
             Q *= (c / Q.sum(dim=0)).unsqueeze(0)
-        return (Q / Q.sum(dim=0, keepdim=True)).t()
+        return (Q / Q.sum(dim=0, keepdim=True)).T
 
     def cross_entropy(self, emb_sim, assign):
 

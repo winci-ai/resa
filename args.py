@@ -38,17 +38,14 @@ def get_args():
     parser.add_argument("--crops_size", type=int, default=[224], nargs="+",
                     help="crops resolutions (example: [224, 96])")
 
-    parser.add_argument("--crops_min_scale", type=float, default=[0.2], nargs="+",
-                    help="minimum scale of the crops (example: [0.25, 0.05])")
-
-    parser.add_argument("--crops_max_scale", type=float, default=[1.0], nargs="+",
-                    help="maximum scale of the crops (example: [1.0, 0.25])")
-
-    parser.add_argument("--gaussian_prob", type=float, default=[0.5], nargs="+",
-                    help="gaussian_prob (example:[0.5, 0.5])")
-
     parser.add_argument("--solarization_prob", type=float, default=[0.2], nargs="+",
                     help="gaussian_prob (example: [0.2, 0.0])")
+    
+    parser.add_argument("--crop_min_scale", type=float, default=0.2, 
+                    help="minimum scale of the crops")
+
+    parser.add_argument("--crop_max_scale", type=float, default=1.0,
+                    help="maximum scale of the crops")
 
     parser.add_argument("--size_dataset", type=int, default=-1, help="size of dataset")
 

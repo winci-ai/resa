@@ -1,10 +1,10 @@
 port=10001
 gpu=0,1,2,3
-lr=1.5e-4
+lr=3e-4
 wd=0.1
 optimizer=adamw
 epochs=300
-warmup=10
+warmup=40
 arch=vit_small
 patch_size=16
 bs=256
@@ -25,4 +25,4 @@ CUDA_VISIBLE_DEVICES=${gpu} torchrun --nproc_per_node=${ngpu} --master_port=${po
 --warmup_epochs ${warmup} \
 --data_path ./data/ImageNet/ \
 --dump_path ${dump_path} \
---workers 4 \
+--workers 8 \

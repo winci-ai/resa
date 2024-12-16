@@ -3,7 +3,7 @@ gpu=0,1,2,3
 lr=0.5
 wd=1e-5
 optimizer=sgd
-epochs=200
+epochs=100 ## change here for 200, 800 epochs pre-training
 warmup=2
 arch=resnet50
 bs=256
@@ -23,4 +23,4 @@ CUDA_VISIBLE_DEVICES=${gpu} torchrun --nproc_per_node=${ngpu} --master_port=${po
 --warmup_epochs ${warmup} \
 --data_path ./data/ImageNet/ \
 --dump_path ${dump_path} \
---workers 4 \
+--workers 8 \
