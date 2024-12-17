@@ -59,9 +59,8 @@ def get_args():
     parser.add_argument("--temperature", default=0.3, type=float,
                     help="temperature parameter in training loss")
 
-    parser.add_argument(
-        "--momentum", type=float, default=0.996, help="Base EMA parameter"
-    )
+    parser.add_argument("--momentum", type=float, default=0.996, 
+                    help="Base EMA parameter")
 
     #####################
     #### optim params ###

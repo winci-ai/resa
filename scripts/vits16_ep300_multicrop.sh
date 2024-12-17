@@ -11,7 +11,7 @@ bs=128
 gpu_list=(${gpu//,/ })
 ngpu=${#gpu_list[@]}
 bs_total=$((bs * ngpu))
-env_name="resa_multicrop_${arch}_ep${epochs}_bs${bs_total}_optim${optimizer}_lr${lr}_wd${wd}_warmup${warmup}"
+env_name="resa_multicrop_${arch}_ep${epochs}_bs${bs_total}_${optimizer}_lr${lr}_wd${wd}_warmup${warmup}"
 dump_path="out/${env_name}"
 
 CUDA_VISIBLE_DEVICES=${gpu} torchrun --nproc_per_node=${ngpu} --master_port=${port} main.py \

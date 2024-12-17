@@ -70,15 +70,10 @@ class BaseMethod(nn.Module):
             Q *= (c / Q.sum(dim=0)).unsqueeze(0)
         return (Q / Q.sum(dim=0, keepdim=True)).T
 
-    def cross_entropy(self, emb_sim, assign):
-
-        prob = F.softmax(emb_sim, dim=1)
-        prob_t = F.softmax(emb_sim.T, dim=1)
-        
-        loss = torch.sum(-assign * torch.log(prob), dim=-1).mean() + \
-               torch.sum(-assign.T * torch.log(prob_t), dim=-1).mean()
-
-        return loss / 2
+    def cross_entropy(self, s, q):
+        loss = torch.sum(q * F.log_softmax(s, dim=1), dim=-1).mean() + \
+               torch.sum(q.T * F.log_softmax(s.T, dim=1), dim=-1).mean()
+        return - loss / 2
 
     @torch.no_grad()
     def _momentum_params_update(self, m):

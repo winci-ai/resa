@@ -170,7 +170,7 @@ def train(loader, model, scaler, optimizer, epoch, args):
         losses.update(loss.item(), samples[0].size(0))
         batch_time.update(time.time() - end)
         end = time.time()
-        if args.local_rank ==0 and it % 50 == 0:
+        if args.local_rank == 0 and it % 50 == 0:
             logging.info(
                 "Epoch: [{0}][{1}]\t"
                 "Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t"
