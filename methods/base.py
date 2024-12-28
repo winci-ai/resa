@@ -59,8 +59,8 @@ class BaseMethod(nn.Module):
         return h, emb
 
     @torch.no_grad()
-    def sinkhorn(self, square, eps=0.05, niters=3):
-        Q = torch.exp(square / eps).T
+    def sinkhorn(self, scores, eps=0.05, niters=3):  # scores must be a square matrix here
+        Q = torch.exp(scores / eps).T
         Q /= Q.sum()
         m , _ = Q.shape
         c = torch.ones(m, device=self.device) / m

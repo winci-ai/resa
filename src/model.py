@@ -57,7 +57,7 @@ def get_predictor(args):
 
 def get_encoder(args):
     """ creates encoder E() by name and modifies it for dataset """
-    if  args.is_vit:
+    if args.is_vit:
         encoder, out_size = vits.__dict__[args.arch](patch_size=args.patch_size)
     else:
         encoder, out_size = resnet.__dict__[args.arch](
