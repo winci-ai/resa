@@ -45,8 +45,8 @@ def load_pretrained_encoder(encoder, pretrained_path):
                 state_dict = checkpoint
 
             for k in list(state_dict.keys()):
-                # retain only encoder up to before the embedding layer
-                if k.startswith('module.momentum_encoder') and not k.startswith('module.momentum_encoder.fc'):
+                # using momentum encoder for downstream tasks
+                if k.startswith('module.momentum_encoder'):
                     # remove prefix
                     state_dict[k[len("module.momentum_encoder."):]] = state_dict[k]
                     # delete renamed or unused k
@@ -105,7 +105,7 @@ def restart_from_checkpoint(ckp_paths, run_variables=None, **kwargs):
         if key in checkpoint and value is not None:
             try:
                 msg = value.load_state_dict(checkpoint[key], strict=False)
-                print(msg)
+                logging.info(msg)
             except TypeError:
                 msg = value.load_state_dict(checkpoint[key])
             logging.info(f"=> loaded {key} from checkpoint '{ckp_path}'")
@@ -199,7 +199,6 @@ class AverageMeter(object):
         self.sum += val * n
         self.count += n
         self.avg = self.sum / self.count
-
 
 def accuracy(output, target, topk=(1,)):
     """Computes the accuracy over the k top predictions for the specified values of k"""

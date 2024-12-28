@@ -166,11 +166,6 @@ def train(loader, model, scaler, optimizer, epoch, args):
         with torch.cuda.amp.autocast():
             loss = model(samples)
         scaler.scale(loss).backward()
-
-        if args.clip_grad:
-            scaler.unscale_(optimizer)
-            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=args.clip_grad)
-
         scaler.step(optimizer)
         scaler.update()
 

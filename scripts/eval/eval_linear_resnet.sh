@@ -13,9 +13,9 @@ dump_path="out/${env_name}"
 
 CUDA_VISIBLE_DEVICES=${gpu} torchrun --nproc_per_node=1 --master_port=${port} eval_linear.py \
 --epochs ${epochs} \
+--arch ${arch} \
 --lr-classifier ${lr} \
 --batch_size ${bs} \
---arch ${arch} \
 --dump_path ${dump_path} \
 --pretrained ${pretrained} \
 --data_path ./data/ImageNet/ \

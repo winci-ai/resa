@@ -49,7 +49,7 @@ def get_args():
     parser.add_argument("--crops_min_scale", type=float, default=[0.2], nargs="+",
                     help="minimum scale of the crops (example: [0.25, 0.05])")
 
-    parser.add_argument("--c", type=float, default=[1.], nargs="+",
+    parser.add_argument("--crops_max_scale", type=float, default=[1.], nargs="+",
                     help="maximum scale of the crops (example: [1., 0.25])")
 
     parser.add_argument("--solarization_prob", type=float, default=[0.2], nargs="+",
@@ -63,7 +63,6 @@ def get_args():
     ############################
     ### resa specific params ###
     ############################
-
     parser.add_argument("--temperature", default=0.3, type=float,
                     help="temperature parameter in training loss")
 
