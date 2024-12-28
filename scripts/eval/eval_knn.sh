@@ -4,7 +4,7 @@ gpu=0
 name=""
 pretrained="out/${name}/checkpoint.pth.tar"
 bs=256
-arch=resnet50
+arch=vit_small  
 env_name="eval_knn_${name}"
 dump_path="out/${env_name}"
 

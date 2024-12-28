@@ -101,7 +101,7 @@ def main():
     train_labels = torch.tensor([s[-1] for s in dataset_train.samples]).long()
     test_labels = torch.tensor([s[-1] for s in dataset_val.samples]).long()
 
-    args.knn = [5, 10, 20, 100]
+    args.knn = [5, 10, 15, 20, 50, 100]
 
     if args.rank == 0:
         if args.use_cuda:

@@ -97,7 +97,7 @@ def main():
     logging.info(f"creating model '{args.arch}'")
     # if the network is a Vision Transformer (i.e. vit_tiny, vit_small, vit_base)
     if args.arch.startswith('vit'):
-        encoder, out_size = vits.__dict__[args.arch](patch_size=args.patch_size, stop_grad_conv1=args.stop_grad_conv1)
+        encoder, out_size = vits.__dict__[args.arch](patch_size=args.patch_size)
         out_size = out_size * (args.n_last_blocks + int(args.avgpool_patchtokens))
     else:
         encoder, out_size = resnet.__dict__[args.arch]()

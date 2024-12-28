@@ -46,9 +46,9 @@ def load_pretrained_encoder(encoder, pretrained_path):
 
             for k in list(state_dict.keys()):
                 # retain only encoder up to before the embedding layer
-                if k.startswith('module.encoder') and not k.startswith('module.encoder.fc'):
+                if k.startswith('module.momentum_encoder') and not k.startswith('module.momentum_encoder.fc'):
                     # remove prefix
-                    state_dict[k[len("module.encoder."):]] = state_dict[k]
+                    state_dict[k[len("module.momentum_encoder."):]] = state_dict[k]
                     # delete renamed or unused k
                     del state_dict[k]
 
@@ -122,7 +122,7 @@ def build_optimizer(parameters, args):
     if args.optimizer == 'sgd':
         optimizer = torch.optim.SGD(parameters, momentum=0.9, weight_decay=args.weight_decay)
     elif args.optimizer == 'adamw':
-        optimizer = torch.optim.AdamW(parameters, weight_decay=args.weight_decay)
+        optimizer = torch.optim.AdamW(parameters, weight_decay=args.weight_decay, eps=args.eps)
     return optimizer
 
 def world_info_from_env():

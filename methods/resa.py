@@ -34,11 +34,11 @@ class ReSA(BaseMethod):
         total_loss = 0
         n_loss_terms = 0
 
-        for q in range(len(emb_m)):
-            for v in range(len(emb)):
+        for q in range(len(emb)):
+            for v in range(len(emb_m)):
                 if v == q:
-                    continue
-                emb_sim = emb[v] @ emb_m[q].T / self.temp
+                    continues
+                emb_sim = emb[q] @ emb_m[v].T / self.temp
                 total_loss += self.cross_entropy(emb_sim, assign)
                 n_loss_terms += 1
         return total_loss / n_loss_terms

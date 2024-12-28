@@ -3,6 +3,14 @@
 
 import argparse
 
+def get_default_params(arch):
+    # Params from paper (https://arxiv.org/pdf/2103.00020.pdf)
+    arch = arch.lower()
+    if "vit" in arch:
+        return {"optimizer": 'adamw', "lr": 5e-4, "wd": 0.1, "warmup_epochs": 40}
+    else:
+        return {"optimizer": 'sgd', "lr": 0.5, "wd": 1e-5, "warmup_epochs": 2}
+
 def get_args():
     parser = argparse.ArgumentParser(description="Implementation of ReSA")
 
@@ -37,19 +45,19 @@ def get_args():
                     
     parser.add_argument("--crops_size", type=int, default=[224], nargs="+",
                     help="crops resolutions (example: [224, 96])")
+    
+    parser.add_argument("--crops_min_scale", type=float, default=[0.2], nargs="+",
+                    help="minimum scale of the crops (example: [0.25, 0.05])")
+
+    parser.add_argument("--c", type=float, default=[1.], nargs="+",
+                    help="maximum scale of the crops (example: [1., 0.25])")
 
     parser.add_argument("--solarization_prob", type=float, default=[0.2], nargs="+",
                     help="gaussian_prob (example: [0.2, 0.0])")
-    
-    parser.add_argument("--crop_min_scale", type=float, default=0.2, 
-                    help="minimum scale of the crops")
-
-    parser.add_argument("--crop_max_scale", type=float, default=1.0,
-                    help="maximum scale of the crops")
 
     parser.add_argument("--size_dataset", type=int, default=-1, help="size of dataset")
 
-    parser.add_argument("--workers", default=4, type=int,
+    parser.add_argument("--workers", default=8, type=int,
                     help="number of data loading workers")
     
     ############################
@@ -71,21 +79,19 @@ def get_args():
     parser.add_argument("--batch_size", default=256, type=int,
                     help="batch size per gpu, i.e. how many unique instances per gpu")
 
-    parser.add_argument('--lr', default=0.5, type=float, 
+    parser.add_argument('--lr', default=None, type=float, 
                     help='initial (base) learning rate for train')
 
-    parser.add_argument('--wd', '--weight_decay', default=1e-5, type=float, 
-                    help='weight decay (default: 1e-5)', dest='weight_decay')
+    parser.add_argument('--wd', '--weight_decay', default=None, type=float, 
+                    help='weight decay for train', dest='weight_decay')
     
-    parser.add_argument("--optimizer", type=str, choices=["sgd","adamw"], default="sgd", 
+    parser.add_argument("--optimizer", type=str, choices=["sgd","adamw"], default=None, 
                     help="optimizer")
 
-    parser.add_argument("--warmup_epochs", default=2, type=int, help="number of warmup epochs")
+    parser.add_argument('--eps', default=1e-6, type=float, 
+                    help='adamw eps')
 
-    parser.add_argument('--clip_grad', type=float, default=None, 
-                    help="""Maximal parameter gradient norm if using gradient clipping.  
-                            Clipping with norm .3 ~ 1.0 can help optimization for larger ViT architectures. 
-                            0 for disabling.""")
+    parser.add_argument("--warmup_epochs", default=None, type=int, help="number of warmup epochs")
 
     ####################
     #### dist params ###
@@ -144,7 +150,7 @@ def get_args():
     parser.add_argument('--pretrained', default='', type=str, metavar='PATH',
                     help='path to checkpoint for evaluation(default: none)')
 
-    parser.add_argument('--lr-encoder', default=0.004, type=float, metavar='LR',
+    parser.add_argument('--lr-encoder', default=0, type=float, metavar='LR',
                     help='encoder base learning rate')
 
     parser.add_argument('--lr-classifier', default=20, type=float, metavar='LR',
@@ -161,5 +167,12 @@ def get_args():
     parser.add_argument('--use_cuda', default=True,
                     help="""Should we store the features on GPU in knn evaluation? 
                             We recommend setting this to False if you encounter OOM""")
+    
+    args = parser.parse_args()
 
-    return parser.parse_args()
+    default_params = get_default_params(args.arch)
+    for name, val in default_params.items():
+        if getattr(args, name) is None:
+            setattr(args, name, val)
+
+    return args

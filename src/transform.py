@@ -82,10 +82,6 @@ class ImageNetTransform(BaseTransform):
             crop_size (int, optional): size of the crop. Defaults to 224.
         """
 
-        ratio = crop_size / 224 
-        min_scale = min_scale * ratio
-        max_scale = max_scale * ratio
-
         self.transform = transforms.Compose(
             [
                 transforms.RandomResizedCrop(
@@ -107,7 +103,6 @@ class ImageNetTransform(BaseTransform):
             ]
         )
 
-
 class MuiltiCropDataset(datasets.ImageFolder):
     """Support two or numtiple views"""
     def __init__(
@@ -124,7 +119,7 @@ class MuiltiCropDataset(datasets.ImageFolder):
 
         weak_transform = transforms.Compose([
                     transforms.RandomResizedCrop(args.crops_size[0],
-                        scale=(args.crop_min_scale, args.crop_max_scale)),
+                        scale=(args.crops_min_scale[0], args.crops_max_scale[0])),
                     transforms.RandomHorizontalFlip(),
                     transforms.ToTensor(),
                     transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
@@ -134,7 +129,7 @@ class MuiltiCropDataset(datasets.ImageFolder):
 
         for i in range(len(args.crops_nmb)):
             trans.extend([ImageNetTransform(crop_size = args.crops_size[i], 
-                                            min_scale = args.crop_min_scale, max_scale = args.crop_max_scale,
+                                            min_scale = args.crops_min_scale[i], max_scale = args.crops_max_scale[i],
                                             solarization_prob = args.solarization_prob[i]) ] * args.crops_nmb[i])
 
         self.trans = trans
