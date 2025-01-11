@@ -63,7 +63,7 @@ def get_args():
     ############################
     ### resa specific params ###
     ############################
-    parser.add_argument("--temperature", default=0.3, type=float,
+    parser.add_argument("--temperature", default=0.4, type=float,
                     help="temperature parameter in training loss")
 
     parser.add_argument("--momentum", type=float, default=0.996, 

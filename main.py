@@ -89,7 +89,7 @@ def main():
     # ============ init schedulers ... ============
     args.lr_schedule = cosine_scheduler(
         args.lr,
-        args.lr * 0.001,
+        args.lr * 0.1,
         args.epochs, len(train_loader),
         warmup_epochs=args.warmup_epochs,
     )
