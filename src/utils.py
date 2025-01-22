@@ -121,8 +121,12 @@ def restart_from_checkpoint(ckp_paths, run_variables=None, **kwargs):
 def build_optimizer(parameters, args):
     if args.optimizer == 'sgd':
         optimizer = torch.optim.SGD(parameters, momentum=0.9, weight_decay=args.weight_decay)
+        args.final_lr = args.lr * 0.1
+
     elif args.optimizer == 'adamw':
         optimizer = torch.optim.AdamW(parameters, weight_decay=args.weight_decay, eps=args.eps)
+        args.final_lr = args.lr * 0.001
+        
     return optimizer
 
 def world_info_from_env():
