@@ -120,13 +120,20 @@ def restart_from_checkpoint(ckp_paths, run_variables=None, **kwargs):
 
 def build_optimizer(parameters, args):
     if args.optimizer == 'sgd':
-        optimizer = torch.optim.SGD(parameters, momentum=0.9, weight_decay=args.weight_decay)
-        args.final_lr = args.lr * 0.1
+        optimizer = torch.optim.SGD(parameters, 0, momentum=0.9, weight_decay=args.wd)
+        args.final_lr = args.lr * 0.1   
+        """
+        we observe a slight performance drop in ReSA 
+        when the learning rate decreases to a very small value during the later stages of training. 
+        We hypothesize that an excessively small learning rate may amplify the regularization effect of weight decay in SGD, 
+        causing the weights to diverge from the optimal solution. 
+        To address this, we set the minimum learning rate in the cosine decay schedule to 0.1 ∗ lr.
+        """
 
     elif args.optimizer == 'adamw':
-        optimizer = torch.optim.AdamW(parameters, weight_decay=args.weight_decay, eps=args.eps)
+        optimizer = torch.optim.AdamW(parameters, 0, weight_decay=args.wd)
         args.final_lr = args.lr * 0.001
-        
+
     return optimizer
 
 def world_info_from_env():

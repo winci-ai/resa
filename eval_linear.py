@@ -14,7 +14,7 @@ import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import src.resnet as resnet
 import src.vision_transformer as vits
-from torch.optim.lr_scheduler import MultiStepLR
+from torch.optim.lr_scheduler import MultiStepLR, CosineAnnealingLR
 from args import get_args
 
 from src.utils import (
@@ -42,7 +42,7 @@ def main():
     device, args = init_distributed_device(args)
 
     if args.train_percent in {1, 10}:
-        args.train_files = open('./src/percent/{}percent.txt'.format(args.train_percent), 'r').readlines()
+        args.train_files = open('./src/imagenet_subset/{}percent.txt'.format(args.train_percent), 'r').readlines()
 
     if not os.path.exists(args.dump_path):
         # Create the folder if it doesn't exist
@@ -127,7 +127,11 @@ def main():
         param_groups.append(dict(params=encoder.parameters(), lr=args.lr_encoder))
 
     optimizer = torch.optim.SGD(param_groups, momentum=0.9, weight_decay=0)
-    scheduler = MultiStepLR(optimizer, milestones=[60, 80], gamma=0.1)
+
+    if args.scheduler == 'step':
+        scheduler = MultiStepLR(optimizer, milestones=[60, 80], gamma=0.1)
+    else:
+        scheduler = CosineAnnealingLR(optimizer, args.epochs, eta_min=0)
 
     logging.info(f"Building optimizer and scheduler done.")
     

@@ -9,7 +9,7 @@ def get_default_params(arch):
     if "vit" in arch:
         return {"optimizer": 'adamw', "lr": 5e-4, "wd": 0.1, "warmup_epochs": 40}
     else:
-        return {"optimizer": 'sgd', "lr": 0.5, "wd": 1e-5, "warmup_epochs": 2}
+        return {"optimizer": 'sgd', "lr": 0.5, "wd": 1e-5, "warmup_epochs": 10}
 
 def get_args():
     parser = argparse.ArgumentParser(description="Implementation of ReSA")
@@ -19,20 +19,6 @@ def get_args():
 
     parser.add_argument('--seed', default=None, type=int,
                     help='random seed for initializing training.')
-
-    parser.add_argument(
-        "--wandb_project",
-        type=str,
-        default="resa",
-        help="name of the run for wandb project",
-    )
-
-    parser.add_argument(
-        "--env_name",
-        type=str,
-        default="resa",
-        help="name of the run for wandb env",
-    )
 
     #####################
     #### data params ####
@@ -57,7 +43,7 @@ def get_args():
 
     parser.add_argument("--size_dataset", type=int, default=-1, help="size of dataset")
 
-    parser.add_argument("--workers", default=8, type=int,
+    parser.add_argument("--workers", default=4, type=int,
                     help="number of data loading workers")
     
     ############################
@@ -81,14 +67,11 @@ def get_args():
     parser.add_argument('--lr', default=None, type=float, 
                     help='initial (base) learning rate for train')
 
-    parser.add_argument('--wd', '--weight_decay', default=None, type=float, 
-                    help='weight decay for train', dest='weight_decay')
+    parser.add_argument('--wd', default=None, type=float, 
+                    help='weight decay for train')
     
     parser.add_argument("--optimizer", type=str, choices=["sgd","adamw"], default=None, 
                     help="optimizer")
-
-    parser.add_argument('--eps', default=1e-6, type=float, 
-                    help='adamw eps')
 
     parser.add_argument("--warmup_epochs", default=None, type=int, help="number of warmup epochs")
 
@@ -135,7 +118,7 @@ def get_args():
     ########################
     #### evaluate params ###
     ########################
-    parser.add_argument('--train-percent', default=100, type=int,
+    parser.add_argument('--train_percent', default=100, type=int,
                     choices=(100, 10, 1),
                     help='size of traing set in percent')
 
@@ -149,11 +132,14 @@ def get_args():
     parser.add_argument('--pretrained', default='', type=str, metavar='PATH',
                     help='path to checkpoint for evaluation(default: none)')
 
-    parser.add_argument('--lr-encoder', default=0, type=float, metavar='LR',
+    parser.add_argument('--lr_encoder', default=0, type=float, metavar='LR',
                     help='encoder base learning rate')
 
-    parser.add_argument('--lr-classifier', default=20, type=float, metavar='LR',
+    parser.add_argument('--lr_classifier', default=20, type=float, metavar='LR',
                     help='classifier base learning rate')
+
+    parser.add_argument("--scheduler", type=str, default="step", choices=('step', 'cos'),
+                    help="learning rate scheduler")
 
     parser.add_argument('--n_last_blocks', default=4, type=int, 
                     help="""Concatenate [CLS] tokens for the `n` last blocks. 

@@ -202,8 +202,10 @@ class VisionTransformer(nn.Module):
 
         self.norm = norm_layer(embed_dim)
 
-        self._init_weights()
-
+        # Preliminary settings. Maybe a different initialization method works better.
+        self._init_weights() 
+        
+        # We follow MoCoV3 to freeze the patch embedding layer to enhance training stability.
         self.patch_embed.proj.weight.requires_grad = False
         self.patch_embed.proj.bias.requires_grad = False
 

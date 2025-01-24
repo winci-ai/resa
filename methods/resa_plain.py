@@ -1,8 +1,9 @@
 import torch
-from methods.base import BaseMethod, FullGatherLayer
+from methods.base import BaseMethod
 import torch.nn.functional as F
 
-class ReSA_NO_EMA(BaseMethod):
+class ReSA_plain(BaseMethod):
+    # ReSA without using the momentum network
 
     def __init__(self, args):
         super().__init__(args)

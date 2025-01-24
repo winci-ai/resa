@@ -7,6 +7,7 @@ from itertools import chain
 from methods.base import BaseMethod
 
 class ReSA(BaseMethod):
+    # ReSA using the momentum network, better performance
 
     def __init__(self, args):
         super().__init__(args)
@@ -37,7 +38,7 @@ class ReSA(BaseMethod):
         for q in range(len(emb)):
             for v in range(len(emb_m)):
                 if v == q:
-                    continues
+                    continue
                 emb_sim = emb[q] @ emb_m[v].T / self.temp
                 total_loss += self.cross_entropy(emb_sim, assign)
                 n_loss_terms += 1
