@@ -16,3 +16,4 @@ objective during training, outperforming state of-the-art SSL baselines and achi
     <img src="https://github.com/winci-ai/resa/releases/download/figure/resa.jpg" width="700">
 </p>
 
+## Installation and Requirements
