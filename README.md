@@ -28,6 +28,63 @@ objective during training, outperforming state of-the-art SSL baselines and achi
     <img src="https://github.com/winci-ai/resa/releases/download/figure/cifar100_tsne.jpg" width="600">
 </p>
 
+## Pretrained models
+
+Our pretrained ResNet-50 on ImageNet:
+<table>
+  <tr>
+    <th>epochs</th>
+    <th>bs</th>
+    <th>top-1 acc</th>
+    <th colspan="4">download</th>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>256</td>
+    <td>71.9%</td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs256_ep100.pth">resnet50</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs256_ep100.pth">full</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep100_train.log">train log</a></td>
+    <td><a href="">eval log</a></td>
+  </tr>
+  <tr>
+    <td>200</td>
+    <td>256</td>
+    <td>73.4%</td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs256_ep200.pth">resnet50</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs256_ep200.pth">full</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep200_train.log">train log</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep200_linear.log">eval log</a></td>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>1024</td>
+    <td>71.3%</td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep100.pth">resnet50</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep100.pth">full</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep100_train.log">train log</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep100_linear.log">eval log</a></td>
+  </tr>
+  <tr>
+    <td>200</td>
+    <td>1024</td>
+    <td>73.8%</td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep200.pth">resnet50</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep200.pth">full</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep200_train.log">train log</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep200_linear.log">eval log</a></td>
+  </tr>
+  <tr>
+    <td>800</td>
+    <td>1024</td>
+    <td>75.2%</td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep800.pth">resnet50</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep800.pth">full</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep800_train.log">train log</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep800_linear.log">eval log</a></td>
+  </tr>
+</table>
+
 
 ## Installation and Requirements
 
@@ -37,7 +94,7 @@ git clone https://github.com/winci-ai/resa.git
 cd resa
 ```
 
-2. Create a conda environment, activate it and install Packages (newer version of python is OK)
+2. Create a conda environment, activate it and install Packages (newer versions of python is OK)
 ```Shell
 conda create -n resa python=3.8.18
 conda activate resa
