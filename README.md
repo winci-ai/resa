@@ -259,5 +259,9 @@ torchrun --nproc_per_node=1 eval_linear.py \
 The command for using 10% subset is identical; you simply need to set `--train_percent 10`.
 
 
+## License
+See the [LICENSE](./LICENSE) file for details about the license under which this code is made available.
 
-
+## Citation
+If you find this repository useful in your research, please consider giving a star :star: and a citation
+```
