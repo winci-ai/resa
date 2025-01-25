@@ -24,6 +24,7 @@ class BaseMethod(nn.Module):
     def ForwardWrapper(self, samples, encoder, projector):
 
         if self.is_vit:
+            # concate views with the same image size
             views = len(samples)
             idx_crops = torch.cumsum(torch.unique_consecutive(
                 torch.tensor([inp.shape[-1] for inp in samples]),
@@ -76,7 +77,7 @@ class BaseMethod(nn.Module):
         return - loss / 2
 
     @torch.no_grad()
-    def _momentum_params_update(self, m):
+    def update_momentum_params(self, m):
         """
         Update of the momentum encoder and projector
         """

@@ -4,8 +4,6 @@
 import argparse
 
 def get_default_params(arch):
-    # Params from paper (https://arxiv.org/pdf/2103.00020.pdf)
-    arch = arch.lower()
     if "vit" in arch:
         return {"optimizer": 'adamw', "lr": 5e-4, "wd": 0.1, "warmup_epochs": 40}
     else:
@@ -41,7 +39,8 @@ def get_args():
     parser.add_argument("--solarization_prob", type=float, default=[0.2], nargs="+",
                     help="gaussian_prob (example: [0.2, 0.0])")
 
-    parser.add_argument("--size_dataset", type=int, default=-1, help="size of dataset")
+    parser.add_argument("--size_dataset", type=int, default=-1, 
+                    help="size of dataset, -1 indicates the full dataset")
 
     parser.add_argument("--workers", default=4, type=int,
                     help="number of data loading workers")

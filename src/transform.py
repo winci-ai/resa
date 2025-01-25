@@ -52,7 +52,6 @@ class ImageNetTransform(BaseTransform):
         horizontal_flip_prob: float = 0.5,
         gaussian_prob: float = 0.5,
         solarization_prob: float = 0.0,
-        equalization_prob: float = 0.0,
         min_scale: float = 0.2,
         max_scale: float = 1.0,
         crop_size: int = 224,
@@ -75,8 +74,6 @@ class ImageNetTransform(BaseTransform):
                 Defaults to 0.0.
             solarization_prob (float, optional): probability of applying solarization.
                 Defaults to 0.0.
-            equalization_prob (float, optional): probability of applying equalization.
-                Defaults to 0.0.
             min_scale (float, optional): minimum scale of the crops. Defaults to 0.2.
             max_scale (float, optional): maximum scale of the crops. Defaults to 1.0.
             crop_size (int, optional): size of the crop. Defaults to 224.
@@ -96,7 +93,6 @@ class ImageNetTransform(BaseTransform):
                 transforms.RandomGrayscale(p=gray_scale_prob),
                 transforms.RandomApply([GaussianBlur()], p=gaussian_prob),
                 transforms.RandomApply([Solarization()], p=solarization_prob),
-                transforms.RandomApply([Equalization()], p=equalization_prob),
                 transforms.RandomHorizontalFlip(p=horizontal_flip_prob),
                 transforms.ToTensor(),
                 transforms.Normalize(mean, std),
