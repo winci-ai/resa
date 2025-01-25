@@ -142,7 +142,7 @@ git clone https://github.com/winci-ai/resa.git
 cd resa
 ```
 
-2. Create a conda environment, activate it and install Packages (newer versions of python is OK)
+2. Create a conda environment, activate it and install packages (newer versions of python is OK)
 ```Shell
 conda create -n resa python=3.8.18
 conda activate resa
