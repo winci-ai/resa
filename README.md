@@ -50,7 +50,7 @@ Our pretrained ResNet-50 models on ImageNet:
     <td>200</td>
     <td>256</td>
     <td>73.4%</td>
-    <td>-</td>
+    <td>67.1%</td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs256_ep200.pth">resnet50</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs256_ep200.pth">full</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep200_train.log">train log</a></td>
@@ -70,7 +70,7 @@ Our pretrained ResNet-50 models on ImageNet:
     <td>200</td>
     <td>1024</td>
     <td>73.8%</td>
-    <td>-</td>
+    <td>67.6%</td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep200.pth">resnet50</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep200.pth">full</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep200_train.log">train log</a></td>
