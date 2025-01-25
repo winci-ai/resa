@@ -83,9 +83,8 @@ def main():
     model.cuda(device)
     model = nn.parallel.DistributedDataParallel(model, device_ids=[device])
 
-    if args.local_rank == 0:
-        logging.info(model)
-        logging.info("Building model done.")
+    logging.info(model)
+    logging.info("Building model done.")
 
     # build optimizer
     args.lr = args.lr * args.batch_size * args.world_size / 256

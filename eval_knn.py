@@ -31,7 +31,6 @@ def random_seed(args):
         np.random.seed(args.seed)
 
 def main():
-
     args = get_args()
     random_seed(args)
     # fully initialize distributed device environment
@@ -40,7 +39,12 @@ def main():
     if not os.path.exists(args.dump_path):
         # Create the folder if it doesn't exist
         os.makedirs(args.dump_path)
+        
     setup_logging(os.path.join(args.dump_path,'out.log'), logging.INFO)
+    if args.local_rank != 0:
+        def log_pass(*args):
+            pass
+        logging.info = log_pass
 
     # ============ preparing data ... ============
     transform = transforms.Compose([
