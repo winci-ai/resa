@@ -30,7 +30,7 @@ objective during training, outperforming state of-the-art SSL baselines and achi
 
 ## Pretrained models
 
-Our pretrained ResNet-50 models on ImageNet:
+Our pretrained ResNet-50 models on ImageNet (You can choose to download only the weights of the pretrained encoder used for downstream tasks, or the full checkpoint which contains encoder, projector, and predictor weights for both base and momentum networks):
 
 <table border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
