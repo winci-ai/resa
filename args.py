@@ -134,7 +134,7 @@ def get_args():
     parser.add_argument('--lr_encoder', default=0, type=float, metavar='LR',
                     help='encoder base learning rate')
 
-    parser.add_argument('--lr_classifier', default=20, type=float, metavar='LR',
+    parser.add_argument('--lr_classifier', default=40, type=float, metavar='LR',
                     help='classifier base learning rate')
 
     parser.add_argument("--scheduler", type=str, default="step", choices=('step', 'cos'),
