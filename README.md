@@ -16,16 +16,10 @@ objective during training, outperforming state of-the-art SSL baselines and achi
     <img src="https://github.com/winci-ai/resa/releases/download/figure/resa.jpg" width="700">
 </p>
 
-### ReSA Excels at Fine-grained Learning
+### ReSA Excels at both Fine-grained and Coarse-grained Learning
 
 <p align="center">
-    <img src="https://github.com/winci-ai/resa/releases/download/figure/cifar10_tsne.jpg" width="300">
-</p>
-
-### ReSA also Stands Out in Coarse-grained Representations
-
-<p align="center">
-    <img src="https://github.com/winci-ai/resa/releases/download/figure/cifar100_tsne.jpg" width="300">
+    <img src="https://github.com/winci-ai/resa/releases/download/figure/tsne.jpg" width="700">
 </p>
 
 ## Pretrained models
