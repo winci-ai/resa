@@ -152,7 +152,6 @@ pip install -r requirements.txt
 
 ```
 torchrun --nproc_per_node=1 main.py \
---arch resnet50 \
 --epochs 100 \
 --batch_size 256 \
 --data_path /path/to/imagenet \
@@ -168,7 +167,6 @@ The command for 200-epoch pretraining is identical; you simply need to set `--ep
 
 ```
 torchrun --nproc_per_node=8 main.py \
---arch resnet50 \
 --epochs 100 \
 --batch_size 128 \
 --warmup_epochs 10 \
@@ -218,7 +216,6 @@ torchrun --nnodes=2 --node_rank=1 --master_addr=[main node address] --nproc_per_
 If the pretraining batch size is 1024, just run:
 ```
 torchrun --nproc_per_node=1 eval_linear.py \
---arch resnet50 \
 --epochs 100 \
 --batch_size 256 \
 --data_path /path/to/imagenet \
@@ -236,7 +233,6 @@ To evaluate a weighted k-NN classifier with a single GPU on a pre-trained model,
 
 ```
 torchrun --nproc_per_node=1 eval_knn.py \
---arch resnet50 \
 --batch_size 256 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
@@ -248,10 +244,11 @@ torchrun --nproc_per_node=1 eval_knn.py \
 To perform a low-shot evaluation on the ResNet-50 model pretrained for 800 epochs with a batch size of 1024, run
 ```
 torchrun --nproc_per_node=1 eval_linear.py \
---arch resnet50 \
+--epochs 20 \
 --batch_size 256 \
 --lr_classifier 40 \
 --lr_encoder 0.0002 \
+--scheduler cos \
 --weights finetune \
 --train_percent 1 \
 --data_path /path/to/imagenet \
