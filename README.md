@@ -126,7 +126,7 @@ Our pretrained ViT-S/16 model on ImageNet:
 │   ├── model.py                #   Function definition for the encoder, projector, and predictor
 │   ├── resnet.py               #   Class definition for the ResNet model
 │   ├── transforms.py           #   data augmentation for pretraining
-│   ├── utils.py                  #   shared utilities
+│   ├── utils.py                #   shared utilities
 │   └── vision_transformer.py   #   Class definition for the ViT model
 ├── args.py                     #   arguments
 ├── eval_knn.py                 #   evaluate with a weighted k-nn classifier
