@@ -173,7 +173,7 @@ torchrun --nproc_per_node=2 main.py \
 --dump_path /path/to/saving_dir \
 ```
 
-The command for pretraining 200 epochs is identical; we simply need to set `--epoch 200`.
+The command for pretraining 200 epochs is identical; you simply need to set `--epoch 200`.
 
 ### ResNet-50 with 1-node (8-GPU) training, a batch size of 1024
 
@@ -187,7 +187,7 @@ torchrun --nproc_per_node=8 main.py \
 --dump_path /path/to/saving_dir \
 ```
 
-When pretraining for 800 epochs, we should set an extra `--lr 0.4` to ensure training stability.
+When pretraining for 800 epochs, you should set an extra `--lr 0.4` to ensure training stability.
 
 ### ViT-S/16 with 1-node (8-GPU) training, a batch size of 1024
 
@@ -213,7 +213,7 @@ torchrun --nnodes=2 --node_rank=0 --master_addr=[your first node address] --npro
 --dump_path /path/to/saving_dir \
 ```
 
-Then run another command:
+Then run another command in the second node:
 
 ```
 torchrun --nnodes=2 --node_rank=1 --master_addr=[your first node address] --nproc_per_node=4 --master_port=[specified port] main.py \
@@ -225,6 +225,8 @@ torchrun --nnodes=2 --node_rank=1 --master_addr=[your first node address] --npro
 ```
 
 ## Evaluation: Linear classification
+
+## Train the linear classifier with ResNet-50 
 
 The command for training the linear classifier is as follows:
 
@@ -246,6 +248,17 @@ torchrun --nproc_per_node=1 eval_linear.py \
 --epochs 100 \
 --batch_size 256 \
 --lr_classifier 10 \
+--data_path /path/to/imagenet \
+--dump_path /path/to/saving_dir \
+```
+
+## Train the linear classifier with ViT-S/16
+```
+torchrun --nproc_per_node=1 eval_linear.py \
+--arch vit_small \
+--epochs 100 \
+--batch_size 256 \
+--lr_classifier 0.03 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
 ```
