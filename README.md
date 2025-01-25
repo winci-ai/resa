@@ -19,7 +19,7 @@ objective during training, outperforming state of-the-art SSL baselines and achi
 ### ReSA Excels at both Fine-grained and Coarse-grained Learning
 
 <p align="center">
-    <img src="https://github.com/winci-ai/resa/releases/download/figure/tsne.jpg" width="700">
+    <img src="https://github.com/winci-ai/resa/releases/download/figure/tsne.jpg" width="800">
 </p>
 
 ## Pretrained models
