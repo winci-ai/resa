@@ -202,7 +202,7 @@ torchrun --nproc_per_node=8 main.py \
 
 ### Multi-node training
 
-Our code also support multi-node pretraining. For example, when training ViT-S/16 with 2 nodes (8-GPU) and a batch size of 1024, run the following command in the main node:
+Our code also supports multi-node pretraining. For example, when training ViT-S/16 with 2 nodes (8-GPU) and a batch size of 1024, run the following command in the main node:
 
 ```
 torchrun --nnodes=2 --node_rank=0 --master_addr=[main node address] --nproc_per_node=4 --master_port=[specified port] main.py \
@@ -226,7 +226,7 @@ torchrun --nnodes=2 --node_rank=1 --master_addr=[main node address] --nproc_per_
 
 ## Evaluation: Linear classification
 
-## Train the linear classifier with ResNet-50 
+### Train the linear classifier with ResNet-50 
 
 The command for training the linear classifier is as follows:
 
@@ -252,7 +252,7 @@ torchrun --nproc_per_node=1 eval_linear.py \
 --dump_path /path/to/saving_dir \
 ```
 
-## Train the linear classifier with ViT-S/16
+### Train the linear classifier with ViT-S/16
 ```
 torchrun --nproc_per_node=1 eval_linear.py \
 --arch vit_small \
