@@ -50,8 +50,7 @@ def main():
 
     setup_logging(os.path.join(args.dump_path,'out.log'), logging.INFO)
     if args.local_rank != 0:
-        def log_pass(*args):
-            pass
+        def log_pass(*args): pass
         logging.info = log_pass
 
     # Data loading code
