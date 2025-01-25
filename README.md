@@ -162,7 +162,7 @@ torchrun --nproc_per_node=1 main.py \
 --dump_path /path/to/saving_dir \
 ```
 
-This process requires approximately 25.2GB of GPU memory, making it well-suited for training on a single V100 GPU. This pretrained model will achieve 71.9% top-1 accuracy with a linear classifier. However, if training is to be conducted on two 3090 or 4090 GPUs, it should be implemented as `--nproc_per_node=2` and `----batch_size 128`.
+This process requires approximately 25.2GB of GPU memory, making it well-suited for training on a single V100 GPU. This pretrained model will achieve 71.9% top-1 accuracy with a linear classifier. However, if training is to be conducted on two 3090 or 4090 GPUs, it should be implemented as `--nproc_per_node=2` and `--batch_size 128`.
 
 
 The command for 200-epoch pretraining is identical; you simply need to set `--epoch 200`.
@@ -216,9 +216,7 @@ torchrun --nnodes=2 --node_rank=1 --master_addr=[main node address] --nproc_per_
 --dump_path /path/to/saving_dir \
 ```
 
-## Evaluation: Linear classification
-
-### Train the linear classifier with ResNet-50 
+## Evaluation: linear classification
 
 If the pretraining batch size is 1024, just run:
 ```
@@ -228,17 +226,44 @@ torchrun --nproc_per_node=1 eval_linear.py \
 --batch_size 256 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
+--pretrained /path/to/checkpoint.pth \
 ```
 
-if the pretraining batch size is 256, you should set an extra `--lr_classifier 10`.
+If the pretraining batch size is 256, you should set an extra `--lr_classifier 10`.
 
-### Train the linear classifier with ViT-S/16
+If using ViT-S/16 as the encoder, you should set `--arch vit_small` and `--lr_classifier 0.03`.
+
+## Evaluation: k-NN classification
+
+To evaluate a weighted k-NN classifier with a single GPU on a pre-trained model, run:
+
 ```
-torchrun --nproc_per_node=1 eval_linear.py \
---arch vit_small \
---epochs 100 \
+torchrun --nproc_per_node=1 eval_knn.py \
+--arch resnet50 \
 --batch_size 256 \
---lr_classifier 0.03 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
+--pretrained /path/to/checkpoint.pth \
 ```
+
+## Evaluation: semi-supervised classification
+
+To perform a low-shot evaluation on the ResNet-50 model pretrained for 800 epochs with a batch size of 1024, run
+```
+torchrun --nproc_per_node=1 eval_linear.py \
+--arch resnet50 \
+--batch_size 256 \
+--lr_classifier 40 \
+--lr_encoder 0.0002 \
+--weights finetune \
+--train_percent 1 \
+--data_path /path/to/imagenet \
+--dump_path /path/to/saving_dir \
+--pretrained /path/to/checkpoint.pth \
+```
+
+The command for using 10% subset is identical; you simply need to set `--train_percent 10`.
+
+
+
+
