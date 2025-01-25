@@ -118,9 +118,6 @@ Our pretrained ViT-S/16 model on ImageNet with two $224^{2}$ augmented views:
 │   ├── base.py                 #   base class for self-supervised loss implementation
 │   ├── resa_plain.py           #   ReSA without using the momentum network
 │   └── resa.py                 #   ReSA using the momentum network, better performance
-├── scripts                     #   scripts for executing experiments
-│   ├── eval                    #   scripts for evaluation
-│   └── train                   #   scripts for pretraining
 ├── src                         #   the packages
 │   ├── imagenet_subset         #   1% and 10% subsets of ImageNet-1K
 │   ├── model.py                #   function definition for the encoder, projector, and predictor
