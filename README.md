@@ -40,7 +40,7 @@ Our pretrained ResNet-50 models on ImageNet:
     <td>100</td>
     <td>256</td>
     <td>71.9%</td>
-    <td>64.6</td>
+    <td>64.6%</td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs256_ep100.pth">ResNet-50</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs256_ep100.pth">full checkpoint</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep100_train.log">train log</a></td>
