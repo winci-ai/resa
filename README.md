@@ -148,3 +148,67 @@ conda create -n resa python=3.8.18
 conda activate resa
 pip install -r requirements.txt
 ```
+
+## Pretraining
+
+### ResNet-50 with 1-node (1-GPU) training, a batch size of 256 
+
+```
+torchrun --nproc_per_node=1 main.py \
+--arch resnet50 \
+--epochs 100 \
+--batch_size 256 \
+--data_path /path/to/imagenet \
+--dump_path /path/to/saving_dir \
+```
+
+This process requires approximately 25.2GB of GPU memory, making it well-suited for training on a single V100 GPU. This pretrained model will achieve 71.9% top-1 accuracy with a linear classifier. However, if training is to be conducted on two 3090 or 4090 GPUs, it should be implemented as:
+
+```
+torchrun --nproc_per_node=2 main.py \
+--arch resnet50 \
+--epochs 100 \
+--batch_size 128 \
+--data_path /path/to/imagenet \
+--dump_path /path/to/saving_dir \
+```
+
+### ResNet-50 with 1-node (8-GPU) training, a batch size of 1024
+
+```
+torchrun --nproc_per_node=8 main.py \
+--arch resnet50 \
+--epochs 100 \
+--batch_size 128 \
+--warmup_epochs 10 \
+--data_path /path/to/imagenet \
+--dump_path /path/to/saving_dir \
+```
+
+When pretraining for 800 epochs, we should set an extra `--lr 0.4` to ensure training stability.
+
+## Evaluation: Linear classification
+
+The command for training the linear classifier is as follows:
+
+if the pretraining batch size is 1024, just run:
+```
+torchrun --nproc_per_node=1 eval_linear.py \
+--arch resnet50 \
+--epochs 100 \
+--batch_size 256 \
+--data_path /path/to/imagenet \
+--dump_path /path/to/saving_dir \
+```
+
+if the pretraining batch size is 256, we should run:
+
+```
+torchrun --nproc_per_node=1 eval_linear.py \
+--arch resnet50 \
+--epochs 100 \
+--batch_size 256 \
+--lr_classifier 10 \
+--data_path /path/to/imagenet \
+--dump_path /path/to/saving_dir \
+```

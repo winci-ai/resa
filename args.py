@@ -7,7 +7,7 @@ def get_default_params(arch):
     if "vit" in arch:
         return {"optimizer": 'adamw', "lr": 5e-4, "wd": 0.1, "warmup_epochs": 40}
     else:
-        return {"optimizer": 'sgd', "lr": 0.5, "wd": 1e-5, "warmup_epochs": 10}
+        return {"optimizer": 'sgd', "lr": 0.5, "wd": 1e-5, "warmup_epochs": 2}
 
 def get_args():
     parser = argparse.ArgumentParser(description="Implementation of ReSA")

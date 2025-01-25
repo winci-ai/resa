@@ -21,5 +21,5 @@ CUDA_VISIBLE_DEVICES=${gpu} torchrun --nproc_per_node=${ngpu} --master_port=${po
 --solarization_prob 0.2 0 \
 --epochs ${epochs} \
 --batch_size ${bs} \
---data_path ./data/ImageNet/ \
---dump_path ${dump_path} \
+--data_path /path/to/imagenet \
+--dump_path /path/to/saving_dir \
