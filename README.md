@@ -26,7 +26,7 @@ objective during training, outperforming state of-the-art SSL baselines and achi
 
 You can choose to download only the weights of the pretrained encoder used for downstream tasks, or the full checkpoint which contains encoder, projector, and predictor weights for both base and momentum networks.
 
-Our pretrained ResNet-50 models on ImageNet with 2 $224^{2}$ augmentation views:
+Our pretrained ResNet-50 models on ImageNet with two $224^{2}$ augmented views:
 
 <table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
@@ -88,7 +88,7 @@ Our pretrained ResNet-50 models on ImageNet with 2 $224^{2}$ augmentation views:
   </tr>
 </table>
 
-Our pretrained ViT-S/16 model on ImageNet with 2 $224^{2}$ augmentation views:
+Our pretrained ViT-S/16 model on ImageNet with two $224^{2}$ augmented views:
 <table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
     <th>epochs</th>
