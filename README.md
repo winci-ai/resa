@@ -30,19 +30,23 @@ objective during training, outperforming state of-the-art SSL baselines and achi
 
 ## Pretrained models
 
-Our pretrained ResNet-50 models on ImageNet (You can choose to download only the weights of the pretrained encoder used for downstream tasks, or the full checkpoint which contains encoder, projector, and predictor weights for both base and momentum networks):
+You can choose to download only the weights of the pretrained encoder used for downstream tasks, or the full checkpoint which contains encoder, projector, and predictor weights for both base and momentum networks.
+
+Our pretrained ResNet-50 models on ImageNet:
 
 <table border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
     <th>epochs</th>
     <th>bs</th>
     <th>top-1 acc</th>
+    <th>knn acc</th>
     <th colspan="4">download</th>
   </tr>
   <tr>
     <td>100</td>
     <td>256</td>
     <td>71.9%</td>
+    <td>-</td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs256_ep100.pth">resnet50</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs256_ep100.pth">full</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep100_train.log">train log</a></td>
@@ -52,6 +56,7 @@ Our pretrained ResNet-50 models on ImageNet (You can choose to download only the
     <td>200</td>
     <td>256</td>
     <td>73.4%</td>
+    <td>-</td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs256_ep200.pth">resnet50</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs256_ep200.pth">full</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep200_train.log">train log</a></td>
@@ -61,6 +66,7 @@ Our pretrained ResNet-50 models on ImageNet (You can choose to download only the
     <td>100</td>
     <td>1024</td>
     <td>71.3%</td>
+    <td>-</td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep100.pth">resnet50</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep100.pth">full</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep100_train.log">train log</a></td>
@@ -70,6 +76,7 @@ Our pretrained ResNet-50 models on ImageNet (You can choose to download only the
     <td>200</td>
     <td>1024</td>
     <td>73.8%</td>
+    <td>-</td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep200.pth">resnet50</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep200.pth">full</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep200_train.log">train log</a></td>
@@ -79,6 +86,7 @@ Our pretrained ResNet-50 models on ImageNet (You can choose to download only the
     <td>800</td>
     <td>1024</td>
     <td>75.2%</td>
+    <td>69.9%</td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep800.pth">resnet50</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep800.pth">full</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep800_train.log">train log</a></td>
@@ -86,6 +94,26 @@ Our pretrained ResNet-50 models on ImageNet (You can choose to download only the
   </tr>
 </table>
 
+Our pretrained ViT-S/16 model on ImageNet:
+<table border="1" style="width:100%; border-collapse:collapse; text-align:center;">
+  <tr>
+    <th>epochs</th>
+    <th>bs</th>
+    <th>top-1 acc</th>
+    <th>knn acc</th>
+    <th colspan="4">download</th>
+  </tr>
+  <tr>
+    <td>300</td>
+    <td>1024</td>
+    <td>72.7%</td>
+    <td>68.3%</td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_only_bs1024_ep300.pth">vit-s/16</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_full_bs1024_ep300.pth">full</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_bs1024_ep300_train.log">train log</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_bs1024_ep300_linear.log">eval log</a></td>
+  </tr>
+</table>
 
 ## Installation and Requirements
 
