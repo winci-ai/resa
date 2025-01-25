@@ -41,8 +41,8 @@ Our pretrained ResNet-50 models on ImageNet:
     <td>256</td>
     <td>71.9%</td>
     <td>-</td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs256_ep100.pth">resnet50</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs256_ep100.pth">full</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs256_ep100.pth">ResNet-50</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs256_ep100.pth">full checkpoint</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep100_train.log">train log</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep100_linear.log">eval log</a></td>
   </tr>
@@ -51,8 +51,8 @@ Our pretrained ResNet-50 models on ImageNet:
     <td>256</td>
     <td>73.4%</td>
     <td>67.1%</td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs256_ep200.pth">resnet50</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs256_ep200.pth">full</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs256_ep200.pth">ResNet-50</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs256_ep200.pth">full checkpoint</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep200_train.log">train log</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep200_linear.log">eval log</a></td>
   </tr>
@@ -61,8 +61,8 @@ Our pretrained ResNet-50 models on ImageNet:
     <td>1024</td>
     <td>71.3%</td>
     <td>-</td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep100.pth">resnet50</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep100.pth">full</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep100.pth">ResNet-50</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep100.pth">full checkpoint</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep100_train.log">train log</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep100_linear.log">eval log</a></td>
   </tr>
@@ -71,8 +71,8 @@ Our pretrained ResNet-50 models on ImageNet:
     <td>1024</td>
     <td>73.8%</td>
     <td>67.6%</td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep200.pth">resnet50</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep200.pth">full</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep200.pth">ResNet-50</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep200.pth">full checkpoint</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep200_train.log">train log</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep200_linear.log">eval log</a></td>
   </tr>
@@ -81,8 +81,8 @@ Our pretrained ResNet-50 models on ImageNet:
     <td>1024</td>
     <td>75.2%</td>
     <td>69.9%</td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep800.pth">resnet50</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep800.pth">full</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs1024_ep800.pth">ResNet-50</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs1024_ep800.pth">full checkpoint</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep800_train.log">train log</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs1024_ep800_linear.log">eval log</a></td>
   </tr>
@@ -102,8 +102,8 @@ Our pretrained ViT-S/16 model on ImageNet:
     <td>1024</td>
     <td>72.7%</td>
     <td>68.3%</td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_only_bs1024_ep300.pth">vit-s/16</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_full_bs1024_ep300.pth">full</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_only_bs1024_ep300.pth">ViT-S/16</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_full_bs1024_ep300.pth">full checkpoint</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_bs1024_ep300_train.log">train log</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_bs1024_ep300_linear.log">eval log</a></td>
   </tr>
