@@ -32,7 +32,7 @@ Our pretrained ResNet-50 models on ImageNet:
   <tr>
     <th>epochs</th>
     <th>bs</th>
-    <th>top-1 acc</th>
+    <th>linear acc</th>
     <th>knn acc</th>
     <th colspan="4">download</th>
   </tr>
@@ -93,7 +93,7 @@ Our pretrained ViT-S/16 model on ImageNet:
   <tr>
     <th>epochs</th>
     <th>bs</th>
-    <th>top-1 acc</th>
+    <th>linear acc</th>
     <th>knn acc</th>
     <th colspan="4">download</th>
   </tr>
