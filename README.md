@@ -109,6 +109,31 @@ Our pretrained ViT-S/16 model on ImageNet:
   </tr>
 </table>
 
+
+## Code Structure
+
+```
+.
+├── methods                     #   Self-supervised methods
+│   ├── base.py                 #   Base class for self-supervised loss implementation
+│   ├── resa_plain.py           #   ReSA without using the momentum network
+│   └── resa.py                 #   ReSA using the momentum network, better performance
+├── scripts                     #   Scripts for executing experiments
+│   ├── eval                    #   Scripts for evaluation
+│   └── train                   #   Scripts for pretraining
+├── src                         #   the packages
+│   ├── imagenet_subset         #   1% and 10% subsets of ImageNet-1K
+│   ├── model.py                #   Function definition for the encoder, projector, and predictor
+│   ├── resnet.py               #   Class definition for the ResNet model
+│   ├── transforms.py           #   data augmentation for pretraining
+│   ├── utils                   #   shared utilities
+│   └── vision_transformer.py   #   Class definition for the ViT model
+├── args.py                     #   arguments
+├── eval_knn.py                 #   evaluate with a weighted k-nn classifier
+├── eval_linear.py              #   evaluate with a linear classifier
+└── main.py                     #   main function to pretrain with ReSA
+```
+
 ## Installation and Requirements
 
 1. Clone this repository and navigate to the folder
