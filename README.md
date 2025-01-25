@@ -4,7 +4,7 @@
 
 
 <p align="center">
-    <img src="https://github.com/winci-ai/resa/releases/download/figure/postive-feedback.jpg" width="400">
+    <img src="https://github.com/winci-ai/resa/releases/download/figure/postive-feedback.jpg" width="350">
 </p>
 
 
@@ -13,7 +13,7 @@ ReSA is developed within our positive-feedback SSL framework, which directly lev
 objective during training, outperforming state of-the-art SSL baselines and achieving higher efficiency.
 
 <p align="center">
-    <img src="https://github.com/winci-ai/resa/releases/download/figure/resa.jpg" width="700">
+    <img src="https://github.com/winci-ai/resa/releases/download/figure/resa.jpg" width="600">
 </p>
 
 ### ReSA Excels at both Fine-grained and Coarse-grained Learning
