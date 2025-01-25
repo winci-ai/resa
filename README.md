@@ -205,7 +205,7 @@ torchrun --nproc_per_node=8 main.py \
 Our code also support multi-node pretraining. For example, when training with 2 nodes (8-GPU) and a batch size of 1024, run the following command in the main node:
 
 ```
-torchrun --nnodes=2 --node_rank=0 --master_addr=[your first node address] --nproc_per_node=4 --master_port=[specified port] main.py \
+torchrun --nnodes=2 --node_rank=0 --master_addr=[main node address] --nproc_per_node=4 --master_port=[specified port] main.py \
 --arch vit_small \
 --epochs 300 \
 --batch_size 128 \
@@ -216,7 +216,7 @@ torchrun --nnodes=2 --node_rank=0 --master_addr=[your first node address] --npro
 Then run another command in the second node:
 
 ```
-torchrun --nnodes=2 --node_rank=1 --master_addr=[your first node address] --nproc_per_node=4 --master_port=[specified port] main.py \
+torchrun --nnodes=2 --node_rank=1 --master_addr=[main node address] --nproc_per_node=4 --master_port=[specified port] main.py \
 --arch vit_small \
 --epochs 300 \
 --batch_size 128 \
