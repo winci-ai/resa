@@ -89,7 +89,7 @@ Our pretrained ResNet-50 models on ImageNet:
 </table>
 
 Our pretrained ViT-S/16 model on ImageNet:
-<table border="1" style="width:100%; border-collapse:collapse; text-align:center;">
+<table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
     <th>epochs</th>
     <th>bs</th>
