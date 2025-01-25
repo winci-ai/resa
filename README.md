@@ -32,7 +32,7 @@ objective during training, outperforming state of-the-art SSL baselines and achi
 
 Our pretrained ResNet-50 models on ImageNet:
 
-<table align="center">
+<table border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
     <th>epochs</th>
     <th>bs</th>
