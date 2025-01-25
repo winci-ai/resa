@@ -30,3 +30,16 @@ objective during training, outperforming state of-the-art SSL baselines and achi
 
 
 ## Installation and Requirements
+
+1. Clone this repository and navigate to the folder
+```bash
+git clone https://github.com/winci-ai/resa.git
+cd resa
+```
+
+2. Create a conda environment, activate it and install Packages (newer version of python is OK)
+```Shell
+conda create -n resa python=3.8.18
+conda activate resa
+pip install -r requirements.txt
+```
