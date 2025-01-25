@@ -156,7 +156,7 @@ pip install -r requirements.txt
 ```
 torchrun --nproc_per_node=1 main.py \
 --arch resnet50 \
---epochs 100 \
+--epochs 100 \  # or 200
 --batch_size 256 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
@@ -167,7 +167,7 @@ This process requires approximately 25.2GB of GPU memory, making it well-suited 
 ```
 torchrun --nproc_per_node=2 main.py \
 --arch resnet50 \
---epochs 100 \
+--epochs 100 \   # or 200
 --batch_size 128 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
@@ -178,7 +178,7 @@ torchrun --nproc_per_node=2 main.py \
 ```
 torchrun --nproc_per_node=8 main.py \
 --arch resnet50 \
---epochs 100 \
+--epochs 100 \  # or 200
 --batch_size 128 \
 --warmup_epochs 10 \
 --data_path /path/to/imagenet \
