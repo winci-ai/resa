@@ -114,20 +114,20 @@ Our pretrained ViT-S/16 model on ImageNet:
 
 ```
 .
-├── methods                     #   Self-supervised methods
-│   ├── base.py                 #   Base class for self-supervised loss implementation
+├── methods                     #   self-supervised methods
+│   ├── base.py                 #   base class for self-supervised loss implementation
 │   ├── resa_plain.py           #   ReSA without using the momentum network
 │   └── resa.py                 #   ReSA using the momentum network, better performance
-├── scripts                     #   Scripts for executing experiments
-│   ├── eval                    #   Scripts for evaluation
-│   └── train                   #   Scripts for pretraining
+├── scripts                     #   scripts for executing experiments
+│   ├── eval                    #   scripts for evaluation
+│   └── train                   #   scripts for pretraining
 ├── src                         #   the packages
 │   ├── imagenet_subset         #   1% and 10% subsets of ImageNet-1K
-│   ├── model.py                #   Function definition for the encoder, projector, and predictor
-│   ├── resnet.py               #   Class definition for the ResNet model
+│   ├── model.py                #   function definition for the encoder, projector, and predictor
+│   ├── resnet.py               #   class definition for the ResNet model
 │   ├── transforms.py           #   data augmentation for pretraining
 │   ├── utils.py                #   shared utilities
-│   └── vision_transformer.py   #   Class definition for the ViT model
+│   └── vision_transformer.py   #   class definition for the ViT model
 ├── args.py                     #   arguments
 ├── eval_knn.py                 #   evaluate with a weighted k-nn classifier
 ├── eval_linear.py              #   evaluate with a linear classifier
