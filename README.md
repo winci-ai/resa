@@ -50,7 +50,7 @@ Our pretrained ResNet-50 models on ImageNet:
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_only_bs256_ep100.pth">resnet50</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_full_bs256_ep100.pth">full</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep100_train.log">train log</a></td>
-    <td><a href="">eval log</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/resnet50/resa_resnet50_bs256_ep100_linear.log">eval log</a></td>
   </tr>
   <tr>
     <td>200</td>
