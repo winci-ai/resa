@@ -173,7 +173,7 @@ torchrun --nproc_per_node=2 main.py \
 --dump_path /path/to/saving_dir \
 ```
 
-The command for pretraining 200 epochs is identical; you simply need to set `--epoch 200`.
+The command for 200-epoch pretraining is identical; you simply need to set `--epoch 200`.
 
 ### ResNet-50 with 1-node (8-GPU) training, a batch size of 1024
 
@@ -202,7 +202,7 @@ torchrun --nproc_per_node=8 main.py \
 
 ### Multi-node training
 
-Our code also support multi-node pretraining. For example, when training with 2 nodes (8-GPU) and a batch size of 1024, run the following command in the main node:
+Our code also support multi-node pretraining. For example, when training ViT-S/16 with 2 nodes (8-GPU) and a batch size of 1024, run the following command in the main node:
 
 ```
 torchrun --nnodes=2 --node_rank=0 --master_addr=[main node address] --nproc_per_node=4 --master_port=[specified port] main.py \
