@@ -1,5 +1,5 @@
 
-# Copyright (c) Xi Weng.
+# Copyright (c) Winci.
 # Licensed under the Apache License, Version 2.0 (the "License");
 
 """
