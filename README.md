@@ -153,7 +153,6 @@ pip install -r requirements.txt
 ```
 torchrun --nproc_per_node=1 main.py \
 --epochs 100 \
---batch_size 256 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
 ```
@@ -163,12 +162,11 @@ This process requires approximately 25.2GB of GPU memory, making it well-suited 
 
 The command for 200-epoch pretraining is identical; you simply need to set `--epoch 200`.
 
-### ResNet-50 with 1-node (8-GPU) training, a batch size of 1024
+### ResNet-50 with 1-node (4-GPU) training, a batch size of 1024
 
 ```
-torchrun --nproc_per_node=8 main.py \
+torchrun --nproc_per_node=4 main.py \
 --epochs 100 \
---batch_size 128 \
 --warmup_epochs 10 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
@@ -176,26 +174,24 @@ torchrun --nproc_per_node=8 main.py \
 
 When pretraining for 800 epochs, you should set an extra `--lr 0.4` to ensure training stability.
 
-### ViT-S/16 with 1-node (8-GPU) training, a batch size of 1024
+### ViT-S/16 with 1-node (4-GPU) training, a batch size of 1024
 
 ```
-torchrun --nproc_per_node=8 main.py \
+torchrun --nproc_per_node=4 main.py \
 --arch vit_small \
 --epochs 300 \
---batch_size 128 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
 ```
 
 ### Multi-node training
 
-Our code also supports multi-node pretraining. For example, when training ViT-S/16 with 2 nodes (8-GPU) and a batch size of 1024, run the following command in the main node:
+Our code also supports multi-node pretraining. For example, when training ViT-S/16 with 2 nodes (4-GPU) and a batch size of 1024, run the following command in the main node:
 
 ```
-torchrun --nnodes=2 --node_rank=0 --master_addr=[main node address] --nproc_per_node=4 --master_port=[specified port] main.py \
+torchrun --nnodes=2 --node_rank=0 --master_addr=[main node address] --nproc_per_node=2 --master_port=[specified port] main.py \
 --arch vit_small \
 --epochs 300 \
---batch_size 128 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
 ```
@@ -203,10 +199,9 @@ torchrun --nnodes=2 --node_rank=0 --master_addr=[main node address] --nproc_per_
 Then run another command in the second node:
 
 ```
-torchrun --nnodes=2 --node_rank=1 --master_addr=[main node address] --nproc_per_node=4 --master_port=[specified port] main.py \
+torchrun --nnodes=2 --node_rank=1 --master_addr=[main node address] --nproc_per_node=2 --master_port=[specified port] main.py \
 --arch vit_small \
 --epochs 300 \
---batch_size 128 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
 ```
@@ -219,7 +214,6 @@ If the pretraining batch size is 1024, just run:
 ```
 torchrun --nproc_per_node=1 eval_linear.py \
 --epochs 100 \
---batch_size 256 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
 --pretrained /path/to/checkpoint.pth \
@@ -235,7 +229,6 @@ To evaluate a weighted k-NN classifier with a single GPU on a pre-trained model,
 
 ```
 torchrun --nproc_per_node=1 eval_knn.py \
---batch_size 256 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
 --pretrained /path/to/checkpoint.pth \
@@ -247,9 +240,6 @@ To perform a low-shot evaluation on the ResNet-50 model pretrained for 800 epoch
 ```
 torchrun --nproc_per_node=1 eval_linear.py \
 --epochs 20 \
---batch_size 256 \
---lr_classifier 40 \
---lr_encoder 0.0002 \
 --scheduler cos \
 --weights finetune \
 --train_percent 1 \

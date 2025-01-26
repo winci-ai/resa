@@ -131,7 +131,7 @@ def get_args():
     parser.add_argument('--pretrained', default='', type=str, metavar='PATH',
                     help='path to checkpoint for evaluation(default: none)')
 
-    parser.add_argument('--lr_encoder', default=0, type=float, metavar='LR',
+    parser.add_argument('--lr_encoder', default=0.0002, type=float, metavar='LR',
                     help='encoder base learning rate')
 
     parser.add_argument('--lr_classifier', default=40, type=float, metavar='LR',

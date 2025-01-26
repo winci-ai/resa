@@ -122,9 +122,7 @@ def main():
 
     # build optimizer
     args.lr_classifier = args.lr_classifier * args.batch_size * args.world_size / 256
-    logging.info(f"base classifier learning rate: {args.lr_classifier}")
     args.lr_encoder = args.lr_encoder * args.batch_size * args.world_size / 256
-    logging.info(f"base encoder learning rate: {args.lr_encoder}")
 
     param_groups = [dict(params=fc.parameters(), lr=args.lr_classifier)]
     if args.weights == 'finetune':
