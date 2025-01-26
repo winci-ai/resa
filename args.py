@@ -42,8 +42,8 @@ def get_args():
     parser.add_argument("--size_dataset", type=int, default=-1, 
                     help="size of dataset, -1 indicates the full dataset")
 
-    parser.add_argument("--workers", default=4, type=int,
-                    help="number of data loading workers")
+    parser.add_argument("--workers", default=8, type=int,
+                    help="number of data loading workers per gpu")
     
     ############################
     ### resa specific params ###
@@ -72,7 +72,8 @@ def get_args():
     parser.add_argument("--optimizer", type=str, choices=["sgd","adamw"], default=None, 
                     help="optimizer")
 
-    parser.add_argument("--warmup_epochs", default=None, type=int, help="number of warmup epochs")
+    parser.add_argument("--warmup_epochs", default=None, type=int, 
+                    help="number of warmup epochs")
 
     ####################
     #### dist params ###
