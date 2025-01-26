@@ -240,7 +240,7 @@ class VisionTransformer(nn.Module):
         dim = x.shape[-1]
         w0 = w // self.patch_embed.patch_size
         h0 = h // self.patch_embed.patch_size
-        # we add a small number to avoid floating point error in the interpolation
+        # follow dino adding a small number to avoid floating point error in the interpolation
         # see discussion at https://github.com/facebookresearch/dino/issues/8
         w0, h0 = w0 + 0.1, h0 + 0.1
         patch_pos_embed = nn.functional.interpolate(
