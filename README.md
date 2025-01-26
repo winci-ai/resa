@@ -211,7 +211,9 @@ torchrun --nnodes=2 --node_rank=1 --master_addr=[main node address] --nproc_per_
 --dump_path /path/to/saving_dir \
 ```
 
-## Evaluation: linear classification
+## Evaluation
+
+### Linear classification
 
 If the pretraining batch size is 1024, just run:
 ```
@@ -227,7 +229,7 @@ If the pretraining batch size is 256, you should set an extra `--lr_classifier 1
 
 If using ViT-S/16 as the encoder, you should set `--arch vit_small` and `--lr_classifier 0.03`.
 
-## Evaluation: k-NN classification
+### K-NN classification
 
 To evaluate a weighted k-NN classifier with a single GPU on a pre-trained model, run:
 
@@ -239,7 +241,7 @@ torchrun --nproc_per_node=1 eval_knn.py \
 --pretrained /path/to/checkpoint.pth \
 ```
 
-## Evaluation: semi-supervised classification
+### Semi-supervised classification
 
 To perform a low-shot evaluation on the ResNet-50 model pretrained for 800 epochs with a batch size of 1024, run
 ```
