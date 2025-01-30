@@ -114,6 +114,9 @@ def get_args():
 
     parser.add_argument("--emb", type=int, default=512, 
                     help="embedding dimension of the projector")
+
+    parser.add_argument("--drop_path", type=float, default=0., 
+                    help="Stochastic Depth")
     
     ########################
     #### evaluate params ###
