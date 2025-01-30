@@ -146,7 +146,7 @@ conda activate resa
 pip install -r requirements.txt
 ```
 
-## Pretraining
+## Pretraining on ImageNet
 
 ### ResNet-50 with 1-node (1-GPU) training, a batch size of 256 
 
@@ -253,6 +253,8 @@ The command for using 10% subset is identical; you simply need to set `--train_p
 
 ## License
 See the [LICENSE](./LICENSE) file for details about the license under which this code is made available.
+
+If you would like to pretrain ReSA on CIFAR-10/100, please refer to another [repository](https://github.com/winci-ai/resa_cifar).
 
 ## Citation
 If you find this repository useful in your research, please consider giving a star :star: and a citation
