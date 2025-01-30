@@ -37,7 +37,7 @@ def get_args():
                     help="maximum scale of the crops (example: [1., 0.25])")
 
     parser.add_argument("--solarization_prob", type=float, default=[0.2], nargs="+",
-                    help="gaussian_prob (example: [0.2, 0.0])")
+                    help="solarization prob (example: [0.2, 0.0])")
 
     parser.add_argument("--size_dataset", type=int, default=-1, 
                     help="size of dataset, -1 indicates the full dataset")
