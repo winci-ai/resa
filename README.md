@@ -9,7 +9,7 @@
 
 
 ## Method
-ReSA is developed within our positive-feedback SSL framework, which directly leverages the stable and semantically meaningful clustering properties of the encoder’s outputs. Through an online self-clustering mechanism, ReSA refines its own
+ReSA is designed within our positive-feedback SSL framework, which directly leverages the stable and semantically meaningful clustering properties of the encoder’s outputs. Through an online self-clustering mechanism, ReSA refines its own
 objective during training, outperforming state of-the-art SSL baselines and achieving higher efficiency.
 
 <p align="center">
