@@ -11,7 +11,7 @@ import torch.nn as nn
 import torch.backends.cudnn as cudnn
 from src.transform import MuiltiCropDataset
 from args import get_args
-from methods import get_method
+from method import get_method
 
 from src.utils import (
     setup_logging,

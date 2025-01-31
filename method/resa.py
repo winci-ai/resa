@@ -4,7 +4,7 @@
 import torch
 import copy
 from itertools import chain
-from methods.base import BaseMethod
+from method.base import BaseMethod
 
 class ReSA(BaseMethod):
     # ReSA using the momentum network, better performance
