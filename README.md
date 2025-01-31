@@ -1,6 +1,6 @@
-<h2 align="center"> <a href="https://arxiv.org/abs/2402.14289">ReSA: positive-feedback self-supervised learning</a><h5 align="center">
+<h2 align="center"> <a href="https://arxiv.org/abs/2501.18452">ReSA: positive-feedback self-supervised learning</a><h5 align="center">
 
-[![arXiv](https://img.shields.io/badge/Arxiv-2405.11788-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2405.11788)[![License](https://img.shields.io/badge/License-Apache%202.0-yellow)](https://github.com/winci-ai/resa/blob/main/LICENSE)
+[![arXiv](https://img.shields.io/badge/Arxiv-2501.18452-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2501.18452)[![License](https://img.shields.io/badge/License-Apache%202.0-yellow)](https://github.com/winci-ai/resa/blob/main/LICENSE)
 
 
 <p align="center">
@@ -259,3 +259,9 @@ See the [LICENSE](./LICENSE) file for details about the license under which this
 ## Citation
 If you find this repository useful in your research, please consider giving a star :star: and a citation
 ```
+@article{weng2025resa,
+  title={Clustering Properties of Self-Supervised Learning},
+  author={Weng, Xi and An, Jianing and Ma, Xudong and Qi, Binhang and Luo, Jie and Yang, Xi and Dong, Jin Song and Huang, Lei},
+  journal={arXiv preprint arXiv:2501.18452},
+  year={2025}
+}
