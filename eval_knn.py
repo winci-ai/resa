@@ -11,6 +11,7 @@ import logging
 import torch
 from torch import nn
 import random
+import numpy as np
 import torch.distributed as dist
 import torch.backends.cudnn as cudnn
 from torchvision import datasets
