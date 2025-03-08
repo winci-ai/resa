@@ -132,7 +132,6 @@ def build_optimizer(parameters, args):
 
     elif args.optimizer == 'adamw':
         optimizer = torch.optim.AdamW(parameters, 0, weight_decay=args.wd)
-        args.final_lr = args.lr * 0.001
 
     return optimizer
 

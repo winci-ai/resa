@@ -5,7 +5,7 @@ import argparse
 
 def get_default_params(arch):
     if "vit" in arch:
-        return {"optimizer": 'adamw', "lr": 5e-4, "wd": 0.1, "warmup_epochs": 40}
+        return {"optimizer": 'adamw', "lr": 5e-4, "final_lr": 1e-4, "wd": 0.1, "warmup_epochs": 40}
     else:
         return {"optimizer": 'sgd', "lr": 0.5, "wd": 1e-5, "warmup_epochs": 2}
 
@@ -65,6 +65,9 @@ def get_args():
 
     parser.add_argument('--lr', default=None, type=float, 
                     help='initial (base) learning rate for train')
+    
+    parser.add_argument('--final_lr', default=None, type=float, 
+                    help='final learning rate for train')
 
     parser.add_argument('--wd', default=None, type=float, 
                     help='weight decay for train')
