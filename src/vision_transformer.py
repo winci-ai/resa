@@ -167,19 +167,49 @@ class PatchEmbed(nn.Module):
         self.proj = nn.Conv2d(in_chans, embed_dim, kernel_size=patch_size, stride=patch_size)
 
     def forward(self, x):
-        B, C, H, W = x.shape
         x = self.proj(x).flatten(2).transpose(1, 2)
         return x
+    
+class ConvEmbed(nn.Module):
+    """ ConvStem that supports variable patch sizes """
+    def __init__(self, img_size=224, patch_size=16, in_chans=3, embed_dim=768):
+        super().__init__()
 
+        assert img_size % patch_size == 0, "patch_size must evenly divide img_size"
+
+        self.patch_size = patch_size
+        self.grid_size = img_size // patch_size
+        
+        self.num_patches = self.grid_size ** 2
+
+        num_layers = int((patch_size // 2).bit_length())
+        assert 2 ** (num_layers - 1) * 2 == patch_size, "patch_size must be a power of 2 (8, 16, 32, ...)"
+
+        stem = []
+        input_dim, output_dim = in_chans, embed_dim // (patch_size // 2)
+        for _ in range(num_layers):
+            stem.append(nn.Conv2d(input_dim, output_dim, kernel_size=3, stride=2, padding=1, bias=False))
+            stem.append(nn.BatchNorm2d(output_dim))
+            stem.append(nn.ReLU(inplace=True))
+
+            input_dim = output_dim
+            output_dim *= 2
+
+        stem.append(nn.Conv2d(input_dim, embed_dim, kernel_size=1))
+        self.proj = nn.Sequential(*stem)
+
+    def forward(self, x):
+        return self.proj(x).flatten(2).transpose(1, 2)
+    
 class VisionTransformer(nn.Module):
     """ Vision Transformer """
-    def __init__(self, img_size=[224], patch_size=16, in_chans=3, num_classes=0, embed_dim=768, depth=12,
+    def __init__(self, img_size=[224], patch_size=16, in_chans=3, patch_embed=PatchEmbed, embed_dim=768, depth=12,
                  num_heads=12, mlp_ratio=4., qkv_bias=False, qk_scale=None, drop_rate=0., attn_drop_rate=0.,
                  drop_path_rate=0., norm_layer=nn.LayerNorm, **kwargs):
         super().__init__()
         self.num_features = self.embed_dim = embed_dim
 
-        self.patch_embed = PatchEmbed(
+        self.patch_embed = patch_embed(
             img_size=img_size[0], patch_size=patch_size, in_chans=in_chans, embed_dim=embed_dim)
 
         self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim))
@@ -202,12 +232,7 @@ class VisionTransformer(nn.Module):
 
         self.norm = norm_layer(embed_dim)
 
-        # Preliminary settings. Maybe a different initialization method works better.
         self._init_weights() 
-        
-        # We follow MoCoV3 to freeze the patch embedding layer to enhance training stability.
-        self.patch_embed.proj.weight.requires_grad = False
-        self.patch_embed.proj.bias.requires_grad = False
 
     def _init_weights(self):
         patch_size = self.patch_embed.patch_size
@@ -229,6 +254,10 @@ class VisionTransformer(nn.Module):
             val = math.sqrt(6. / float(3 * reduce(mul, (patch_size, patch_size), 1) + self.embed_dim))
             nn.init.uniform_(self.patch_embed.proj.weight, -val, val)
             nn.init.zeros_(self.patch_embed.proj.bias)
+
+            # Follow MoCoV3 to freeze the patch embedding layer to enhance training stability.
+            self.patch_embed.proj.weight.requires_grad = False
+            self.patch_embed.proj.bias.requires_grad = False
 
     def interpolate_pos_encoding(self, x, w, h):
         npatch = x.shape[1] - 1
@@ -312,5 +341,29 @@ def vit_base(patch_size=16, **kwargs):
 def vit_large(patch_size=16, **kwargs):
     model = VisionTransformer(
         patch_size=patch_size, embed_dim=1024, depth=24, num_heads=16, mlp_ratio=4,
+        qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    return model, 1024
+
+def vitc_tiny(patch_size=16, **kwargs):
+    model = VisionTransformer(
+        patch_size=patch_size, patch_embed=ConvEmbed, embed_dim=192, depth=11, num_heads=3, mlp_ratio=4,
+        qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    return model, 192
+
+def vitc_small(patch_size=16, **kwargs):
+    model = VisionTransformer(
+        patch_size=patch_size, patch_embed=ConvEmbed, embed_dim=384, depth=11, num_heads=6, mlp_ratio=4,
+        qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    return model, 384
+
+def vitc_base(patch_size=16, **kwargs):
+    model = VisionTransformer(
+        patch_size=patch_size, patch_embed=ConvEmbed, embed_dim=768, depth=11, num_heads=12, mlp_ratio=4,
+        qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    return model, 768
+
+def vitc_large(patch_size=16, **kwargs):
+    model = VisionTransformer(
+        patch_size=patch_size, patch_embed=ConvEmbed, embed_dim=1024, depth=23, num_heads=16, mlp_ratio=4,
         qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
     return model, 1024

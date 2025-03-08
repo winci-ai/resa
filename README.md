@@ -88,9 +88,10 @@ Our pretrained ResNet-50 models on ImageNet with two $224^{2}$ augmented views:
   </tr>
 </table>
 
-Our pretrained ViT-S/16 model on ImageNet with two $224^{2}$ augmented views:
+Our pretrained ViT model on ImageNet with two $224^{2}$ augmented views:
 <table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
+    <th>Encoder</th>
     <th>epochs</th>
     <th>bs</th>
     <th>linear acc</th>
@@ -98,6 +99,7 @@ Our pretrained ViT-S/16 model on ImageNet with two $224^{2}$ augmented views:
     <th colspan="4">download</th>
   </tr>
   <tr>
+    <td>ViT-S/16</td>
     <td>300</td>
     <td>1024</td>
     <td>72.7%</td>
@@ -106,6 +108,28 @@ Our pretrained ViT-S/16 model on ImageNet with two $224^{2}$ augmented views:
     <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_full_bs1024_ep300.pth">full checkpoint</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_bs1024_ep300_train.log">train log</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_bs1024_ep300_linear.log">eval log</a></td>
+  </tr>
+  <tr>
+    <td>ViTC-S/16</td>
+    <td>300</td>
+    <td>1024</td>
+    <td>75.1%</td>
+    <td>72.3%</td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_s16_only_bs1024_ep300.pth">ViTC-S/16</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_s16_full_bs1024_ep300.pth">full checkpoint</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_s16_bs1024_ep300_train.log">train log</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_s16_bs1024_ep300_linear.log">eval log</a></td>
+  </tr>
+  <tr>
+    <td>ViTC-B/16</td>
+    <td>300</td>
+    <td>1024</td>
+    <td>-</td>
+    <td>74.9%</td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_b16_only_bs1024_ep300.pth">ViTC-S/16</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_b16_full_bs1024_ep300.pth">full checkpoint</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_b16_bs1024_ep300_train.log">train log</a></td>
+    <td><a href="">eval log</a></td>
   </tr>
 </table>
 
