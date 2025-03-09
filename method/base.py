@@ -41,7 +41,8 @@ class BaseMethod(nn.Module):
             emb = projector(h)
             if torch.is_grad_enabled() and self.predictor:
                 emb = self.predictor(emb)
-            
+
+            emb = F.normalize(emb)
             emb = emb.chunk(views)
             h = h.chunk(views)
         else:
@@ -52,29 +53,47 @@ class BaseMethod(nn.Module):
             if torch.is_grad_enabled() and self.predictor:
                 emb = [self.predictor(x) for x in emb]
 
-        emb = [FullGather.apply(F.normalize(x)) for x in emb]
+            emb = [F.normalize(x) for x in emb]
 
-        with torch.no_grad():
-            h = FullGather.apply(F.normalize(h[0]))
+        h = F.normalize(h[0]).detach()
+
+        if not torch.is_grad_enabled():
+            emb = [concat_all_gather(x) for x in emb]
+            h = concat_all_gather(h)
 
         return h, emb
 
-    @torch.no_grad()
-    def sinkhorn(self, scores, eps=0.05, niters=3):  # scores must be a square matrix here
-        Q = torch.exp(scores / eps).T
-        Q /= Q.sum()
-        m , _ = Q.shape
-        c = torch.ones(m, device=self.device) / m
-        for _ in range(niters):
-            u = Q.sum(dim=1)
-            Q *= (c / u).unsqueeze(1)
-            Q *= (c / Q.sum(dim=0)).unsqueeze(0)
-        return (Q / Q.sum(dim=0, keepdim=True)).T
-
     def cross_entropy(self, s, q):
-        loss = torch.sum(q * F.log_softmax(s, dim=1), dim=-1).mean() + \
-               torch.sum(q.T * F.log_softmax(s.T, dim=1), dim=-1).mean()
-        return - loss / 2
+        return - torch.sum(q * F.log_softmax(s, dim=1), dim=-1).mean()
+    
+    @torch.no_grad()
+    def sinkhorn_knopp(self, scores, temp=0.05, n_iterations=3):
+        scores = scores.float()
+        world_size = dist.get_world_size() if dist.is_initialized() else 1
+        Q = torch.exp(scores / temp).t()  # Q is K-by-B for consistency with notations from our paper
+        B = Q.shape[1] * world_size  # number of samples to assign
+        K = Q.shape[0]  # how many prototypes
+
+        # make the matrix sums to 1
+        sum_Q = torch.sum(Q)
+        if dist.is_initialized():
+            dist.all_reduce(sum_Q)
+        Q /= sum_Q
+
+        for it in range(n_iterations):
+            # normalize each row: total weight per prototype must be 1/K
+            sum_of_rows = torch.sum(Q, dim=1, keepdim=True)
+            if dist.is_initialized():
+                dist.all_reduce(sum_of_rows)
+            Q /= sum_of_rows
+            Q /= K
+
+            # normalize each column: total weight per sample must be 1/B
+            Q /= torch.sum(Q, dim=0, keepdim=True)
+            Q /= B
+
+        Q *= B  # the columns must sum to 1 so that Q is an assignment
+        return Q.t()
 
     @torch.no_grad()
     def update_momentum_params(self, m):
@@ -91,21 +110,13 @@ class BaseMethod(nn.Module):
     def forward(self, samples):
         raise NotImplementedError
 
-class FullGather(torch.autograd.Function):
+@torch.no_grad()
+def concat_all_gather(tensor):
     """
-    Gather tensors from all process and support backward propagation
-    for the gradients across processes.
+    Performs all_gather operation on the provided tensors.
+    *** Warning ***: torch.distributed.all_gather has no gradient.
     """
-    @staticmethod
-    def forward(ctx, input):
-        ctx.batch_size = input.shape[0]
-        gather_list = [torch.zeros_like(input) for _ in range(dist.get_world_size())]
-        dist.all_gather(gather_list, input)
-        return torch.cat(gather_list, dim=0)
-
-    @staticmethod
-    def backward(ctx, grad_output):
-        batch_size = ctx.batch_size
-        rank = dist.get_rank()
-        grad_input = grad_output[rank * batch_size : (rank + 1) * batch_size]
-        return grad_input
+    tensors_gather = [torch.ones_like(tensor) for _ in range(dist.get_world_size())]
+    dist.all_gather(tensors_gather, tensor, async_op=False)
+    output = torch.cat(tensors_gather, dim=0)
+    return output
