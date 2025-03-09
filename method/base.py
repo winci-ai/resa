@@ -68,7 +68,6 @@ class BaseMethod(nn.Module):
     
     @torch.no_grad()
     def sinkhorn_knopp(self, scores, temp=0.05, n_iterations=3):
-        scores = scores.float()
         world_size = dist.get_world_size() if dist.is_initialized() else 1
         Q = torch.exp(scores / temp).t()  # Q is K-by-B for consistency with notations from our paper
         B = Q.shape[1] * world_size  # number of samples to assign
