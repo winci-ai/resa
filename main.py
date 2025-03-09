@@ -75,7 +75,8 @@ def main():
     model = get_method(args)
     
     # synchronize batch norm layers
-    model = nn.SyncBatchNorm.convert_sync_batchnorm(model)
+    if "vit" not in args.arch:
+        model = nn.SyncBatchNorm.convert_sync_batchnorm(model)
 
     # copy model to GPU
     torch.cuda.set_device(device)
