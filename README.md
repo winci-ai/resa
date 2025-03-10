@@ -133,7 +133,7 @@ ReSA pretrained ViT model on ImageNet with two $224 \times 224$ augmented views:
   </tr>
 </table>
 
-ReSA pretrained ViT model on ImageNet with two $$224 \times 224$ and ten $96 \times 96$ augmented views:
+ReSA pretrained ViT model on ImageNet with two $224 \times 224$ and ten $96 \times 96$ augmented views:
 
 <table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
