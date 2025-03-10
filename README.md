@@ -26,7 +26,7 @@ objective during training, outperforming state of-the-art SSL baselines and achi
 
 You can choose to download only the weights of the pretrained encoder used for downstream tasks, or the full checkpoint which contains encoder, projector, and predictor weights for both base and momentum networks.
 
-Our pretrained ResNet-50 models on ImageNet with two $224^{2}$ augmented views:
+ReSA pretrained ResNet-50 models on ImageNet with two $224^{2}$ augmented views:
 
 <table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
@@ -88,7 +88,7 @@ Our pretrained ResNet-50 models on ImageNet with two $224^{2}$ augmented views:
   </tr>
 </table>
 
-Our pretrained ViT model on ImageNet with two $224^{2}$ augmented views:
+ReSA pretrained ViT model on ImageNet with two $224^{2}$ augmented views:
 <table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
     <th>Encoder</th>
@@ -129,6 +129,30 @@ Our pretrained ViT model on ImageNet with two $224^{2}$ augmented views:
     <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_b16_only_bs1024_ep300.pth">ViTC-B/16</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_b16_full_bs1024_ep300.pth">full checkpoint</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_b16_bs1024_ep300_train.log">train log</a></td>
+    <td><a href="">eval log</a></td>
+  </tr>
+</table>
+
+ReSA pretrained ViT model on ImageNet with two $224^{2} + 96^{10}$ augmented views:
+
+<table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
+  <tr>
+    <th>Encoder</th>
+    <th>epochs</th>
+    <th>bs</th>
+    <th>linear acc</th>
+    <th>knn acc</th>
+    <th colspan="4">download</th>
+  </tr>
+  <tr>
+    <td>ViTC-B/16</td>
+    <td>300</td>
+    <td>1024</td>
+    <td>Todo</td>
+    <td>76.2%</td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_multicrop_vitc_b16_only_bs1024_ep300.pth">ViTC-B/16</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_multicrop_vitc_b16_full_bs1024_ep300.pth">full checkpoint</a></td>
+    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_multicrop_vitc_b16_bs1024_ep300_train.log">train log</a></td>
     <td><a href="">eval log</a></td>
   </tr>
 </table>
