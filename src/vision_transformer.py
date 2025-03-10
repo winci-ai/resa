@@ -188,7 +188,7 @@ class ConvEmbed(nn.Module):
         input_dim, output_dim = in_chans, embed_dim // (patch_size // 2)
         for _ in range(num_layers):
             stem.append(nn.Conv2d(input_dim, output_dim, kernel_size=3, stride=2, padding=1, bias=False))
-            stem.append(nn.BatchNorm2d(output_dim))
+            stem.append(nn.BatchNorm2d(output_dim))   # BN is just applied for training stability, SyncBatchNorm is not used.
             stem.append(nn.ReLU(inplace=True))
 
             input_dim = output_dim
