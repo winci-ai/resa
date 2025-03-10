@@ -234,6 +234,22 @@ torchrun --nproc_per_node=4 main.py \
 --dump_path /path/to/saving_dir \
 ```
 
+### Training ViTC-B/16 in multi-crop setting with 1-node (8-GPU) training, a batch size of 1024
+
+```
+torchrun --nproc_per_node=8 main.py \
+--arch vitc_base \
+--epochs 300 \
+--batch_size 128 \
+--crops_nmb 1 10 \
+--crops_size 224 96 \
+--crops_min_scale 0.32 0.05 \
+--crops_max_scale 1 0.32 \
+--solarization_prob 0.2 0 \
+--data_path /path/to/imagenet \
+--dump_path /path/to/saving_dir \
+```
+
 ### Multi-node training
 
 Our code also supports multi-node pretraining. For example, when training ViT-S/16 with 2 nodes (4-GPU) and a batch size of 1024, run the following command in the main node:
@@ -272,6 +288,20 @@ torchrun --nproc_per_node=1 eval_linear.py \
 If the pretraining batch size is 256, you should set an extra `--lr_classifier 10`.
 
 If using ViT-S/16 as the encoder, you should set `--arch vit_small` and `--lr_classifier 0.03`.
+
+If using ViTC-B/16 or ViT-B/16 as the encoder,
+
+```
+torchrun --nproc_per_node=1 eval_linear.py \
+--epochs 100 \
+--arch vitc_base \   # or `--arch vit_small`
+--n_last_blocks 1 \
+--avgpool_patchtokens \
+--lr_classifier 0.01 \
+--data_path /path/to/imagenet \
+--dump_path /path/to/saving_dir \
+--pretrained /path/to/checkpoint.pth \
+```
 
 ### K-NN classification
 

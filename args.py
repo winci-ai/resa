@@ -31,10 +31,10 @@ def get_args():
                     help="crops resolutions (example: [224, 96])")
     
     parser.add_argument("--crops_min_scale", type=float, default=[0.2], nargs="+",
-                    help="minimum scale of the crops (example: [0.25, 0.05])")
+                    help="minimum scale of the crops (example: [0.32, 0.05])")
 
     parser.add_argument("--crops_max_scale", type=float, default=[1.], nargs="+",
-                    help="maximum scale of the crops (example: [1., 0.25])")
+                    help="maximum scale of the crops (example: [1., 0.32])")
 
     parser.add_argument("--solarization_prob", type=float, default=[0.2], nargs="+",
                     help="solarization prob (example: [0.2, 0.0])")
