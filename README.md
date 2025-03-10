@@ -26,7 +26,7 @@ objective during training, outperforming state of-the-art SSL baselines and achi
 
 You can choose to download only the weights of the pretrained encoder used for downstream tasks, or the full checkpoint which contains encoder, projector, and predictor weights for both base and momentum networks.
 
-ReSA pretrained ResNet-50 models on ImageNet with two $224^{2}$ augmented views:
+ReSA pretrained ResNet-50 models on ImageNet with two $224 \times 224$ augmented views:
 
 <table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
@@ -88,7 +88,7 @@ ReSA pretrained ResNet-50 models on ImageNet with two $224^{2}$ augmented views:
   </tr>
 </table>
 
-ReSA pretrained ViT model on ImageNet with two $224^{2}$ augmented views:
+ReSA pretrained ViT model on ImageNet with two $224 \times 224$ augmented views:
 <table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
     <th>Encoder</th>
@@ -133,7 +133,7 @@ ReSA pretrained ViT model on ImageNet with two $224^{2}$ augmented views:
   </tr>
 </table>
 
-ReSA pretrained ViT model on ImageNet with two $224^{2} + 96^{10}$ augmented views:
+ReSA pretrained ViT model on ImageNet with two $$224 \times 224$ and ten $96 \times 96$ augmented views:
 
 <table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
   <tr>
