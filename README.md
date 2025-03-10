@@ -124,7 +124,7 @@ Our pretrained ViT model on ImageNet with two $224^{2}$ augmented views:
     <td>ViTC-B/16</td>
     <td>300</td>
     <td>1024</td>
-    <td>Todo</td>
+    <td>76.7%</td>
     <td>74.9%</td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_b16_only_bs1024_ep300.pth">ViTC-B/16</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_b16_full_bs1024_ep300.pth">full checkpoint</a></td>
