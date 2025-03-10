@@ -148,7 +148,7 @@ ReSA pretrained ViT model on ImageNet with two $224 \times 224$ and ten $96 \tim
     <td>ViTC-B/16</td>
     <td>300</td>
     <td>1024</td>
-    <td>Todo</td>
+    <td>ongoing</td>
     <td>76.2%</td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_multicrop_vitc_b16_only_bs1024_ep300.pth">ViTC-B/16</a></td>
     <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_multicrop_vitc_b16_full_bs1024_ep300.pth">full checkpoint</a></td>
