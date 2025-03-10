@@ -157,6 +157,7 @@ ReSA pretrained ViT model on ImageNet with two $$224 \times 224$ and ten $96 \ti
   </tr>
 </table>
 
+Due to the limited computation resource, we can not try to search the best training hyperparameters so far but will stay improving in the future.
 
 ## Code Structure
 
