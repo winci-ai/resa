@@ -294,7 +294,7 @@ If using ViTC-B/16 or ViT-B/16 as the encoder,
 ```
 torchrun --nproc_per_node=1 eval_linear.py \
 --epochs 100 \
---arch vitc_base \   # or `--arch vit_small`
+--arch vitc_base \   # or `--arch vit_base`
 --n_last_blocks 1 \
 --avgpool_patchtokens \
 --lr_classifier 0.01 \
