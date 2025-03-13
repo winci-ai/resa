@@ -59,7 +59,6 @@ class BaseMethod(nn.Module):
 
         if not torch.is_grad_enabled():
             emb = [concat_all_gather(x) for x in emb]
-            h = concat_all_gather(h)
 
         return h, emb
 
