@@ -257,7 +257,7 @@ torchrun --nproc_per_node=1 eval_linear.py \
 --arch vitc_base \   # or `--arch vit_base`
 --n_last_blocks 1 \
 --avgpool_patchtokens \
---lr_classifier 0.01 \
+--lr_classifier 0.02 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
 --pretrained /path/to/checkpoint.pth \
