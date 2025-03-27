@@ -133,30 +133,6 @@ ReSA pretrained ViT model on ImageNet with two $224 \times 224$ augmented views:
   </tr>
 </table>
 
-ReSA pretrained ViT model on ImageNet with two $224 \times 224$ and ten $96 \times 96$ augmented views:
-
-<table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
-  <tr>
-    <th>Encoder</th>
-    <th>epochs</th>
-    <th>bs</th>
-    <th>linear acc</th>
-    <th>knn acc</th>
-    <th colspan="4">download</th>
-  </tr>
-  <tr>
-    <td>ViTC-B/16</td>
-    <td>300</td>
-    <td>1024</td>
-    <td>ongoing</td>
-    <td>76.2%</td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_multicrop_vitc_b16_only_bs1024_ep300.pth">ViTC-B/16</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_multicrop_vitc_b16_full_bs1024_ep300.pth">full checkpoint</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_multicrop_vitc_b16_bs1024_ep300_train.log">train log</a></td>
-    <td><a href="">eval log</a></td>
-  </tr>
-</table>
-
 Due to the limited computation resource, we can not try to search the best training hyperparameters so far but will stay improving in the future.
 
 ## Code Structure
@@ -230,22 +206,6 @@ When pretraining for 800 epochs, you should set an extra `--lr 0.4` to ensure tr
 torchrun --nproc_per_node=4 main.py \
 --arch vit_small \
 --epochs 300 \
---data_path /path/to/imagenet \
---dump_path /path/to/saving_dir \
-```
-
-### Training ViTC-B/16 in multi-crop setting with 1-node (8-GPU) training, a batch size of 1024
-
-```
-torchrun --nproc_per_node=8 main.py \
---arch vitc_base \
---epochs 300 \
---batch_size 128 \
---crops_nmb 1 10 \
---crops_size 224 96 \
---crops_min_scale 0.32 0.05 \
---crops_max_scale 1 0.32 \
---solarization_prob 0.2 0 \
 --data_path /path/to/imagenet \
 --dump_path /path/to/saving_dir \
 ```
