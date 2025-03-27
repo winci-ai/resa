@@ -30,7 +30,7 @@ class ReSA(BaseMethod):
         with torch.no_grad():
             self.update_momentum_params(self.momentum)
             h_m, emb_m = self.ForwardWrapper(samples[:2], self.momentum_encoder, self.momentum_projector)
-            assign = self.sinkhorn_knopp(h_m @ concat_all_gather(h_m).T)
+            assign = self.sinkhorn_knopp(h @ concat_all_gather(h_m).T)
            
         total_loss = 0
         n_loss_terms = 0
