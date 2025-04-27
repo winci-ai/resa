@@ -18,7 +18,6 @@ from torchvision import datasets
 from torchvision import transforms
 from args import get_args
 import src.resnet as resnet
-import src.vision_transformer as vits
 from tqdm import tqdm
 from src.utils import (
     setup_logging,
@@ -78,11 +77,7 @@ def main():
 
     # build model
     logging.info(f"creating model '{args.arch}'")
-    # if the network is a Vision Transformer (i.e. vit_tiny, vit_small, vit_base)
-    if args.arch.startswith('vit'):
-        model, _ = vits.__dict__[args.arch](patch_size=args.patch_size)
-    else:
-        model, _ = resnet.__dict__[args.arch]()
+    model, _ = resnet.__dict__[args.arch]()
 
     load_pretrained_encoder(model, args.pretrained)
 

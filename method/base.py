@@ -14,7 +14,6 @@ class BaseMethod(nn.Module):
     """
     def __init__(self, args):
         super().__init__()
-        self.is_vit = args.is_vit = ('vit' in args.arch)
         self.encoder, self.out_size = get_encoder(args)
         self.projector = get_projector(self.out_size, args)
         self.predictor = get_predictor(args)
@@ -22,43 +21,20 @@ class BaseMethod(nn.Module):
         self.device = args.device
 
     def ForwardWrapper(self, samples, encoder, projector):
+        # do not concate different views if BN is in the model 
+        # As it will disrupt the zero-mean, unit-variance distribution
+        h = [encoder(x) for x in samples]
+        emb = [projector(x) for x in h]
+        if torch.is_grad_enabled() and self.predictor:
+            emb = [self.predictor(x) for x in emb]
 
-        if self.is_vit:
-            # concate views with the same image size
-            views = len(samples)
-            idx_crops = torch.cumsum(torch.unique_consecutive(
-                torch.tensor([inp.shape[-1] for inp in samples]),
-                return_counts=True,
-            )[1], 0)
-
-            start_idx, h = 0, torch.empty(0).to(self.device)
-
-            for end_idx in idx_crops:
-                _out = encoder(torch.cat(samples[start_idx: end_idx]))
-                h = torch.cat((h, _out))
-                start_idx = end_idx
-            # Run the projector forward on the concatenated features.
-            emb = projector(h)
-            if torch.is_grad_enabled() and self.predictor:
-                emb = self.predictor(emb)
-
-            emb = F.normalize(emb)
-            emb = emb.chunk(views)
-            h = h.chunk(views)
-        else:
-            # do not concate different views if BN is in the model 
-            # As it will disrupt the zero-mean, unit-variance distribution
-            h = [encoder(x) for x in samples]
-            emb = [projector(x) for x in h]
-            if torch.is_grad_enabled() and self.predictor:
-                emb = [self.predictor(x) for x in emb]
-
-            emb = [F.normalize(x) for x in emb]
+        emb = [F.normalize(x) for x in emb]
 
         h = F.normalize(h[0]).detach()
 
         if not torch.is_grad_enabled():
             emb = [concat_all_gather(x) for x in emb]
+            h = concat_all_gather(h)
 
         return h, emb
 

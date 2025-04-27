@@ -13,7 +13,6 @@ import torch.backends.cudnn as cudnn
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import src.resnet as resnet
-import src.vision_transformer as vits
 from torch.optim.lr_scheduler import MultiStepLR, CosineAnnealingLR
 from args import get_args
 
@@ -99,12 +98,7 @@ def main():
 
     # build model
     logging.info(f"creating model '{args.arch}'")
-    # if the network is a Vision Transformer (i.e. vit_tiny, vit_small, vit_base)
-    if args.arch.startswith('vit'):
-        encoder, out_size = vits.__dict__[args.arch](patch_size=args.patch_size)
-        out_size = out_size * (args.n_last_blocks + int(args.avgpool_patchtokens))
-    else:
-        encoder, out_size = resnet.__dict__[args.arch]()
+    encoder, out_size = resnet.__dict__[args.arch]()
     
     load_pretrained_encoder(encoder, args.pretrained)
 
@@ -210,17 +204,7 @@ class model_forward(nn.Module):
         self.args = args
     
     def forward(self, samples):
-
-        if "vit" in self.args.arch:
-            intermediate_output = self.encoder.get_intermediate_layers(samples, self.args.n_last_blocks)
-            output = torch.cat([x[:, 0] for x in intermediate_output], dim=-1)
-            if self.args.avgpool_patchtokens:
-                output = torch.cat((output.unsqueeze(-1), torch.mean(intermediate_output[-1][:, 1:], dim=1).unsqueeze(-1)), dim=-1)
-                output = output.reshape(output.shape[0], -1)
-        else:
-            output = self.encoder(samples)
-
-        return self.fc(output)
+        return self.fc(self.encoder(samples))
 
 def train(train_loader, model, criterion, optimizer, epoch, args):
     batch_time = AverageMeter()

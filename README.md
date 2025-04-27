@@ -88,53 +88,6 @@ ReSA pretrained ResNet-50 models on ImageNet with two $224 \times 224$ augmented
   </tr>
 </table>
 
-ReSA pretrained ViT model on ImageNet with two $224 \times 224$ augmented views:
-<table align="center" border="1" style="width:100%; border-collapse:collapse; text-align:center;">
-  <tr>
-    <th>Encoder</th>
-    <th>epochs</th>
-    <th>bs</th>
-    <th>linear acc</th>
-    <th>knn acc</th>
-    <th colspan="4">download</th>
-  </tr>
-  <tr>
-    <td>ViT-S/16</td>
-    <td>300</td>
-    <td>1024</td>
-    <td>72.7%</td>
-    <td>68.3%</td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_only_bs1024_ep300.pth">ViT-S/16</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_full_bs1024_ep300.pth">full checkpoint</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_bs1024_ep300_train.log">train log</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vits16_bs1024_ep300_linear.log">eval log</a></td>
-  </tr>
-  <tr>
-    <td>ViTC-S/16</td>
-    <td>300</td>
-    <td>1024</td>
-    <td>75.1%</td>
-    <td>72.3%</td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_s16_only_bs1024_ep300.pth">ViTC-S/16</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_s16_full_bs1024_ep300.pth">full checkpoint</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_s16_bs1024_ep300_train.log">train log</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_s16_bs1024_ep300_linear.log">eval log</a></td>
-  </tr>
-  <tr>
-    <td>ViTC-B/16</td>
-    <td>300</td>
-    <td>1024</td>
-    <td>76.7%</td>
-    <td>74.9%</td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_b16_only_bs1024_ep300.pth">ViTC-B/16</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_b16_full_bs1024_ep300.pth">full checkpoint</a></td>
-    <td><a href="https://github.com/winci-ai/resa/releases/download/vit/resa_vitc_b16_bs1024_ep300_train.log">train log</a></td>
-    <td><a href="">eval log</a></td>
-  </tr>
-</table>
-
-Due to the limited computation resource, we can not try to search the best training hyperparameters so far but will stay improving in the future.
-
 ## Code Structure
 
 ```
@@ -147,8 +100,7 @@ Due to the limited computation resource, we can not try to search the best train
 │   ├── model.py                #   function definition for the encoder, projector, and predictor
 │   ├── resnet.py               #   class definition for the ResNet model
 │   ├── transforms.py           #   data augmentation for pretraining
-│   ├── utils.py                #   shared utilities
-│   └── vision_transformer.py   #   class definition for the ViT model
+│   └── utils.py                #   shared utilities
 ├── args.py                     #   arguments
 ├── eval_knn.py                 #   evaluate with a weighted k-nn classifier
 ├── eval_linear.py              #   evaluate with a linear classifier
@@ -200,38 +152,6 @@ torchrun --nproc_per_node=4 main.py \
 
 When pretraining for 800 epochs, you should set an extra `--lr 0.4` to ensure training stability.
 
-### ViT-S/16 with 1-node (4-GPU) training, a batch size of 1024
-
-```
-torchrun --nproc_per_node=4 main.py \
---arch vit_small \
---epochs 300 \
---data_path /path/to/imagenet \
---dump_path /path/to/saving_dir \
-```
-
-### Multi-node training
-
-Our code also supports multi-node pretraining. For example, when training ViT-S/16 with 2 nodes (4-GPU) and a batch size of 1024, run the following command in the main node:
-
-```
-torchrun --nnodes=2 --node_rank=0 --master_addr=[main node address] --nproc_per_node=2 --master_port=[specified port] main.py \
---arch vit_small \
---epochs 300 \
---data_path /path/to/imagenet \
---dump_path /path/to/saving_dir \
-```
-
-Then run another command in the second node:
-
-```
-torchrun --nnodes=2 --node_rank=1 --master_addr=[main node address] --nproc_per_node=2 --master_port=[specified port] main.py \
---arch vit_small \
---epochs 300 \
---data_path /path/to/imagenet \
---dump_path /path/to/saving_dir \
-```
-
 ## Evaluation
 
 ### Linear classification
@@ -246,22 +166,6 @@ torchrun --nproc_per_node=1 eval_linear.py \
 ```
 
 If the pretraining batch size is 256, you should set an extra `--lr_classifier 10`.
-
-If using ViT-S/16 as the encoder, you should set `--arch vit_small` and `--lr_classifier 0.03`.
-
-If using ViTC-B/16 or ViT-B/16 as the encoder,
-
-```
-torchrun --nproc_per_node=1 eval_linear.py \
---epochs 100 \
---arch vitc_base \   # or `--arch vit_base`
---n_last_blocks 1 \
---avgpool_patchtokens \
---lr_classifier 0.02 \
---data_path /path/to/imagenet \
---dump_path /path/to/saving_dir \
---pretrained /path/to/checkpoint.pth \
-```
 
 ### K-NN classification
 

@@ -4,10 +4,7 @@
 import argparse
 
 def get_default_params(arch):
-    if "vit" in arch:
-        return {"optimizer": 'adamw', "lr": 5e-4, "final_lr": 1e-4, "wd": 0.1, "warmup_epochs": 40}
-    else:
-        return {"optimizer": 'sgd', "lr": 0.5, "wd": 1e-5, "warmup_epochs": 2}
+    return {"optimizer": 'sgd', "lr": 0.5, "wd": 1e-5, "warmup_epochs": 2}
 
 def get_args():
     parser = argparse.ArgumentParser(description="Implementation of ReSA")
@@ -101,7 +98,7 @@ def get_args():
     #### architecture params ###
     ############################
     parser.add_argument('-a', '--arch', metavar='ARCH', default='resnet50',
-                    help='model architecture (e.g. resnet18, resnet50, vit_small, vit_base)')
+                    help='model architecture (e.g. resnet18, resnet50)')
 
     parser.add_argument('--patch_size', default=16, type=int, 
                     help='Patch resolution of the vision transformer.')
@@ -146,14 +143,6 @@ def get_args():
 
     parser.add_argument("--scheduler", type=str, default="step", choices=('step', 'cos'),
                     help="learning rate scheduler")
-
-    parser.add_argument('--n_last_blocks', default=4, type=int, 
-                    help="""Concatenate [CLS] tokens for the `n` last blocks. 
-                            We use `n=4` when evaluating ViT-Small and `n=1` with ViT-Base.""")
-
-    parser.add_argument('--avgpool_patchtokens', default=False, action="store_true",
-                    help="""Whether ot not to concatenate the global average pooled features to the [CLS] token.
-                            We typically set this to False for ViT-Small and to True with ViT-Base.""")
 
     parser.add_argument('--use_cuda', default=True,
                     help="""Should we store the features on GPU in knn evaluation? 
