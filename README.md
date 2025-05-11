@@ -204,6 +204,6 @@ If you find this repository useful in your research, please consider giving a st
 @article{weng2025resa,
   title={Clustering Properties of Self-Supervised Learning},
   author={Weng, Xi and An, Jianing and Ma, Xudong and Qi, Binhang and Luo, Jie and Yang, Xi and Dong, Jin Song and Huang, Lei},
-  journal={arXiv preprint arXiv:2501.18452},
+  journal={Forty-second International Conference on Machine Learning},
   year={2025}
 }
