@@ -61,13 +61,13 @@ def get_args():
                     help="batch size per gpu, i.e. how many unique instances per gpu")
 
     parser.add_argument('--lr', default=None, type=float, 
-                    help='initial (base) learning rate for train')
+                    help='initial (base) learning rate for training')
     
     parser.add_argument('--final_lr', default=None, type=float, 
-                    help='final learning rate for train')
+                    help='final learning rate for training')
 
     parser.add_argument('--wd', default=None, type=float, 
-                    help='weight decay for train')
+                    help='weight decay for training')
     
     parser.add_argument("--optimizer", type=str, choices=["sgd","adamw"], default=None, 
                     help="optimizer")
@@ -100,9 +100,6 @@ def get_args():
     parser.add_argument('-a', '--arch', metavar='ARCH', default='resnet50',
                     help='model architecture (e.g. resnet18, resnet50)')
 
-    parser.add_argument('--patch_size', default=16, type=int, 
-                    help='Patch resolution of the vision transformer.')
-
     parser.add_argument("--mlp_layers", type=int, default=3, 
                     help="number of FC layers in projector")
 
@@ -114,9 +111,6 @@ def get_args():
 
     parser.add_argument("--emb", type=int, default=512, 
                     help="embedding dimension of the projector")
-
-    parser.add_argument("--drop_path", type=float, default=0., 
-                    help="Stochastic Depth")
     
     ########################
     #### evaluate params ###
