@@ -124,7 +124,7 @@ pip install -r requirements.txt
 
 ## Pretraining on ImageNet
 
-If you would like to pretrain ReSA on CIFAR-10/100, please refer to another [repository](https://github.com/winci-ai/resa_cifar).
+### If you would like to pretrain ReSA on CIFAR-10/100, please refer to another [repository](https://github.com/winci-ai/resa_cifar).
 
 ### ResNet-50 with 1-node (1-GPU) training, a batch size of 256 
 
